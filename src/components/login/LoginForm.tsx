@@ -1,6 +1,6 @@
 import { Box, Button, Form, Text, FormField, TextInput } from "grommet";
 
-export const LoginForm = () => {
+export const LoginForm = (props: any) => {
   const submit = (e: any) => {
     e.preventDefault();
   };
@@ -16,11 +16,13 @@ export const LoginForm = () => {
           <TextInput id="password" name="password" type="password" />
         </FormField>
 
-        <Button type="submit" label="Submit" primary color="accent-4" />
+        <Button type="submit" label="Submit" primary color={props.color} />
 
-        <Text margin={{ left: "small" }} size="small" color="status-critical">
-          * Required Field
-        </Text>
+        <Text
+          margin={{ left: "small" }}
+          size="small"
+          color="status-critical"
+        ></Text>
       </Form>
     </Box>
   );

@@ -10,6 +10,7 @@ const theme = {
     },
     colors: {
       focus: "accent-4",
+      background: "#f0dcc9",
     },
   },
 };
