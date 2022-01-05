@@ -26,8 +26,7 @@ export const HomePage = () => {
         </Grid>
 
         <div style={{ textAlign: "center", marginTop: "20px" }}>
-          About
-          <br />
+          <h2>About</h2>
           Team morale is a service to track and analyze the morale of a team by
           getting inputs from their daily stand ups. The users can sign up and
           create teams. Then, every team can meet up digitally and register

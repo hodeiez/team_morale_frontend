@@ -8,8 +8,8 @@ export const LoginForm = (props: any) => {
   return (
     <Box align="center" pad="small">
       <Form /* onChange={update} */ onSubmit={submit}>
-        <FormField name="username" htmlFor="username" label="Username" required>
-          <TextInput id="username" name="username" />
+        <FormField name="email" htmlFor="email" label="Email" required>
+          <TextInput id="email" name="email" type="email" />
         </FormField>
 
         <FormField name="password" htmlFor="password" label="Password" required>
