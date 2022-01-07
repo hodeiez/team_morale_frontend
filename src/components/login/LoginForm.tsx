@@ -1,5 +1,6 @@
 import { Box, Button, Form, Text, FormField, TextInput } from "grommet";
 import { useCallback, useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFetchCallback } from "./../../commons/hooks/useFetch";
 import { login } from "../../commons/api/apiConstants";
 import { AuthContext } from "../../commons/auth/AuthContext";
@@ -8,6 +9,8 @@ type UserCreds = {
   password: string;
 };
 export const LoginForm = (props: any) => {
+  const history = useNavigate();
+
   const { state, dispatch } = useContext(AuthContext);
 
   const [userCreds, setUserCreds] = useState<UserCreds | any>({});
@@ -25,9 +28,11 @@ export const LoginForm = (props: any) => {
     e.preventDefault();
     await execute(e);
   };
-
   useEffect(() => {
-    !isLoading && !apiData
+    state.auth ? history("/main") : history("");
+  }, [state]);
+  useEffect(() => {
+    !isLoading && apiData
       ? dispatch({
           type: "LOGIN",
           user: { ...(apiData as any) },
@@ -39,6 +44,13 @@ export const LoginForm = (props: any) => {
 
   return (
     <Box align="center" pad="small">
+      <Button
+        onClick={() => {
+          dispatch({ type: "LOGOUT", auth: false });
+        }}
+      >
+        logout
+      </Button>
       <p>here state{JSON.stringify(state.auth)}</p>
       <p>here state{JSON.stringify(state.user)}</p>
       <Form onChange={update} onSubmit={submit}>

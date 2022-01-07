@@ -59,7 +59,7 @@ export const useFetchCallback = (
           setApiData(data);
           setIsLoading(false);
         } catch (error: any) {
-          setServerError(error);
+          setServerError(error.message);
           setIsLoading(false);
         }
       };
