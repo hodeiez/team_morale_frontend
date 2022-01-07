@@ -6,7 +6,7 @@ import { NavBar } from "../../components/nav/NavBar";
 function BaseRoutes(props: any) {
   return (
     <Router>
-      <NavBar />
+      {props.isLogged ? <NavBar /> : <></>}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/main" element={<MainPage />} />

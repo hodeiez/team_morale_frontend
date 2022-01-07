@@ -3,8 +3,8 @@ import axios from "axios";
 
 //TODO: refactor to use just one: useFetch or useFetchCallback
 export const useFetch = (method: any, url: any, body: any, headers: any) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [apiData, setApiData] = useState(null);
+  const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [apiData, setApiData] = useState<Object>({});
   const [serverError, setServerError] = useState(null);
 
   useEffect(() => {
