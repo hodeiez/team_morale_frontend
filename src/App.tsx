@@ -1,6 +1,7 @@
 import { Grommet } from "grommet";
 import "./App.css";
-import { HomePage } from "./pages/home/HomePage";
+//import { HomePage } from "./pages/home/HomePage";
+import BaseRoutes from "./commons/router";
 const theme = {
   global: {
     font: {
@@ -18,7 +19,8 @@ const theme = {
 function App() {
   return (
     <Grommet theme={theme} full>
-      <HomePage />
+      <BaseRoutes />
+      {/*   <HomePage /> */}
     </Grommet>
   );
 }
