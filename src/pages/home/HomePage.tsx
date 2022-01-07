@@ -2,16 +2,8 @@ import { Header, Grid, ResponsiveContext, Main, Text, Box } from "grommet";
 import { useContext } from "react";
 import { AccordionContainer } from "../../commons/components/AccordionContainer/AccordionContainer";
 import { LoginForm } from "../../components/login/LoginForm";
-import { useFetch } from "./../../commons/hooks/useFetch";
 
 export const HomePage = () => {
-  const { isLoading, serverError, apiData } = useFetch(
-    "GET",
-    "https://jsonplaceholder.typicode.com/posts/1",
-    {},
-    { Accept: "*" }
-  );
-
   const size = useContext(ResponsiveContext);
   return (
     <Box background="#f0dcc9">
@@ -45,9 +37,6 @@ export const HomePage = () => {
           users registered updates instantly when they are in the room.
         </div>
       </Main>
-      {JSON.stringify(apiData)}
-      {JSON.stringify(isLoading)}
-      {JSON.stringify(serverError)}
     </Box>
   );
 };
