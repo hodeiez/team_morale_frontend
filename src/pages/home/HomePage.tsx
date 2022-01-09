@@ -1,10 +1,15 @@
 import { Header, Grid, ResponsiveContext, Main, Text, Box } from "grommet";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../commons/auth/AuthContext";
 import { AccordionContainer } from "../../commons/components/AccordionContainer/AccordionContainer";
 import { LoginForm } from "../../components/login/LoginForm";
 
 export const HomePage = () => {
+  const { dispatch } = useContext(AuthContext);
   const size = useContext(ResponsiveContext);
+  useEffect(() => {
+    dispatch({ type: "LOGOUT", auth: false });
+  }, []);
   return (
     <Box background="#f0dcc9">
       <Header align="center" pad="large" background="light">

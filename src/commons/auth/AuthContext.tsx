@@ -2,7 +2,7 @@ import * as Auth from "./Auth";
 
 import React, { createContext, useReducer } from "react";
 
-type User = {
+export type User = {
   email: string;
   username: string;
 };
@@ -10,9 +10,9 @@ export type InitialStateType = {
   user: User;
   auth: boolean;
 };
-const initialState = {
+const initialState: InitialStateType = {
   auth: false,
-  user: { email: "", username: "" },
+  user: {} as User,
 };
 //const AuthContext = createContext<InitialStateType>(initialState);
 
@@ -33,15 +33,17 @@ export const authReducer = (state: InitialStateType, action: Action) => {
       return {
         ...state,
         ...{
-          email: action.user.email,
-          username: action.user.username,
+          user: action.user,
           token: action.token,
           auth: action.auth,
         },
       };
     case "LOGOUT":
       localStorage.clear();
-      return { ...state, ...{ email: "", username: "" }, auth: action.auth };
+      return {
+        user: {} as User,
+        auth: action.auth,
+      };
     default:
       return state;
   }

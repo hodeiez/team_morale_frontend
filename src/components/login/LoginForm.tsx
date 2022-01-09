@@ -14,6 +14,7 @@ export const LoginForm = (props: any) => {
   const { state, dispatch } = useContext(AuthContext);
 
   const [userCreds, setUserCreds] = useState<UserCreds | any>({});
+
   const update = useCallback((user: any) => {
     setUserCreds(user);
   }, []);
@@ -31,6 +32,7 @@ export const LoginForm = (props: any) => {
   useEffect(() => {
     state.auth ? history("/main") : history("");
   }, [state]);
+
   useEffect(() => {
     !isLoading && apiData
       ? dispatch({
@@ -44,15 +46,6 @@ export const LoginForm = (props: any) => {
 
   return (
     <Box align="center" pad="small">
-      <Button
-        onClick={() => {
-          dispatch({ type: "LOGOUT", auth: false });
-        }}
-      >
-        logout
-      </Button>
-      <p>here state{JSON.stringify(state.auth)}</p>
-      <p>here state{JSON.stringify(state.user)}</p>
       <Form onChange={update} onSubmit={submit}>
         <FormField name="email" htmlFor="email" label="Email" required>
           <TextInput id="email" name="email" type="email" />
@@ -64,15 +57,11 @@ export const LoginForm = (props: any) => {
 
         <Button type="submit" label="Submit" primary color={props.color} />
 
-        <Text
-          margin={{ left: "small" }}
-          size="small"
-          color="status-critical"
-        ></Text>
+        <br></br>
+        <Text margin={{ left: "small" }} size="small" color="status-critical">
+          {serverError}
+        </Text>
       </Form>
-      {JSON.stringify(apiData)}
-      {JSON.stringify(isLoading)}
-      {JSON.stringify(serverError)}
     </Box>
   );
 };
