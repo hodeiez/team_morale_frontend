@@ -7,7 +7,7 @@ import {
   CardHeader,
   Button,
 } from "grommet";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as I from "grommet-icons";
 import { useRandomColorCard, greyPalleteColors } from "../../commons/utils";
 export const TeamCard = (props: any) => {
