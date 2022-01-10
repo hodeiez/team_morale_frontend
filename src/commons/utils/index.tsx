@@ -11,7 +11,7 @@ export const mergeArrays = (oldArr: any, newArr: any) => {
 export const useRandomColorCard = (color: any) => {
   const [background, setBackground] = useState("#b2beb5");
   useEffect(() => {
-    const number = Math.floor(Math.random() * 3);
+    const number = Math.floor(Math.random() * 4);
     switch (number) {
       case 0:
         setBackground(color.one);

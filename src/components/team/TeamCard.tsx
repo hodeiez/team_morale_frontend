@@ -21,32 +21,26 @@ export const TeamCard = (props: any) => {
         width="100%"
         round="25px"
       >
-        <I.Workshop />
-        <Text weight="bold" color="white" alignSelf="center">
+        <Text weight="bold" color="white" alignSelf="center" margin="auto">
           {props.name}
         </Text>
       </CardHeader>
       <CardBody alignSelf="center">
-        {/*  <Tip
-          content="Check the team details"
-          dropProps={{ background: "rgba(104,160,107,0.2);", round: "16px" }}
-        > */}
         <Button
           label="Details"
           primary
           color="rgba(104,160,107,0.7);"
           margin="5px"
           onClick={() =>
-            history("/team", {
-              state: { userTeamId: props.userTeamsid, id: props.id },
+            history(`/team/${props.name}`, {
+              state: {
+                userTeamId: props.userTeamsId,
+                id: props.id,
+              },
             })
           }
         />
-        {/*  </Tip> */}
-        {/*  <Tip
-          content="Go to live meeting"
-          dropProps={{ background: "rgba(173,81,81,0.2)", round: "16px" }}
-        > */}
+
         <Button
           label="Go Live!"
           primary
@@ -54,11 +48,14 @@ export const TeamCard = (props: any) => {
           margin="5px"
           onClick={() =>
             history("/event", {
-              state: { userTeamId: props.userTeamsid, id: props.id },
+              state: {
+                userTeamId: props.userTeamsid,
+                id: props.id,
+                teamName: props.name,
+              },
             })
           }
         />
-        {/*  </Tip> */}
       </CardBody>
       <Tip
         content={props.members.map((member: string) => (

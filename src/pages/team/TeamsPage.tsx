@@ -42,7 +42,7 @@ export const TeamsPage = () => {
         ) : (
           apiData!.map((t: any) => (
             <TeamCard
-              userTeamsid={t.userTeamsid}
+              userTeamsid={t.userTeamsId}
               name={t.name}
               startDate={t.startDate}
               lastUpdateDate={t.lastUpdateDate}
