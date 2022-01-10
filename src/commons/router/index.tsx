@@ -6,6 +6,7 @@ import { NavBar } from "../../components/nav/NavBar";
 import { AuthContext } from "../auth/AuthContext";
 import { useContext } from "react";
 import { isAuth } from "../auth/Auth";
+import { TeamsPage } from "../../pages/team/TeamsPage";
 
 function BaseRoutes(props: any) {
   const { state } = useContext(AuthContext);
@@ -16,6 +17,7 @@ function BaseRoutes(props: any) {
         <Route path="/" element={<HomePage />} />
         <Route path="/main" element={<MainPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/teams" element={<TeamsPage />} />
       </Routes>
     </Router>
   );
