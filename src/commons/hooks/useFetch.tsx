@@ -66,7 +66,46 @@ export const useFetchCallback = (
 
       fetchData();
     },
-    [url, method, body]
+    [url, method, body, headers, setServerError, setIsLoading]
+  );
+
+  return { isLoading, apiData, serverError, execute };
+};
+type fetchOptions = {
+  method?: any;
+  url: string;
+  headers?: any;
+  body?: any;
+};
+export const useFetchPostOrUpdate = (options: fetchOptions) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiData, setApiData] = useState(null);
+  const [serverError, setServerError] = useState(null);
+
+  const execute = useCallback(
+    async (options: fetchOptions) => {
+      setIsLoading(true);
+      const fetchData = async () => {
+        try {
+          const resp = await axios({
+            method: options.method,
+            url: options.url,
+            data: options.body,
+            headers: options.headers ? options.headers : { Accept: "*" },
+          });
+          const data: any = await resp?.data;
+
+          setApiData(data);
+          setIsLoading(false);
+        } catch (error: any) {
+          setServerError(error.message);
+          setIsLoading(false);
+        }
+      };
+
+      fetchData();
+    },
+    [options]
   );
 
   return { isLoading, apiData, serverError, execute };

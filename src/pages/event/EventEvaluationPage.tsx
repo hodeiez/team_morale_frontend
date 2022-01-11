@@ -139,7 +139,7 @@ export const EventEvaluationPage = () => {
         position="bottom"
         background="accent-4"
       >
-        <EvaluationForm />
+        <EvaluationForm userTeamId={userTeamId} />
       </Layer>
     </Box>
   );

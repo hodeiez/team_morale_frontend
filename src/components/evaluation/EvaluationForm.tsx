@@ -3,42 +3,90 @@ import { Box, Form, FormField, Select, Button } from "grommet";
 //import { fetchit } from "../../commons/hooks/useFetch";
 //import * as API from "../../commons/apiConstants";
 //import { initialState, reducer } from "./../../commons/baseReducer";
+import * as N from "../../commons/components/Notifications";
+import * as Address from "../../commons/api/apiConstants";
 import * as I from "grommet-icons";
+import { useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
 const options = [...new Array(10)].map((_, i) => {
   return { label: "level " + (i + 1), value: i + 1 };
-}); /* format to send
-"energy":6,
-"well_being": 1,
-"production":10,
-"user_teams": 11
- */
+});
+type Post = {
+  energy: number;
+  id?: number;
+  production: number;
+  user_teams: number;
+  well_being: number;
+};
+
+const validateForm = (post: Post) => {
+  if (post.production & post.well_being & post.energy) return true;
+  return false;
+};
 
 export function EvaluationForm(props: any) {
   const [value, setValue]: any = useState({});
-  // const [state, dispatch] = useReducer(reducer, initialState);
+  const [post, setPost] = useState<Post>({} as Post);
+  const [isUpdate, setIsUpdate] = useState(false);
+
+  const { isLoading, apiData, serverError, execute } = useFetchPostOrUpdate({
+    url: Address.sendEvaluation(),
+    //method: isUpdate ? "PUT" : "POST",
+  });
   const onChange = useCallback((nextValue) => {
     setValue(nextValue);
   }, []);
-  //TODO:return the state, and validate before sending data
-  const onSubmit = () => {
-    /*  const my = Object.keys(value).reduce((acc: any, val: string) => {
-      acc[val] = value[val].value;
-      return acc;
-    }, {});
-    const toPost = { ...my, ...{ user_teams: props.userTeamId } };
-    console.log(toPost);
-    fetchit(API.postEvaluation(), dispatch, {
-      method: "POST",
-      body: JSON.stringify(toPost),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }); */
-  };
+
+  const onSubmit = useCallback(
+    async (e: any) => {
+      e.preventDefault();
+      const updated = Object.keys(value)
+        .sort()
+        .reduce((acc: any, val: string) => {
+          acc[val] = value[val].value;
+          return acc;
+        }, {});
+      const toPost = {
+        ...{ ...post, ...updated },
+        ...{ user_teams: props.userTeamId },
+      };
+      // setPost(toPost);
+      setIsUpdate(true);
+      console.log(toPost);
+
+      console.log(post);
+      await execute({
+        url: Address.sendEvaluation(),
+        method: isUpdate ? "PUT" : "POST",
+        body: toPost,
+      });
+      const resp: Post = apiData!;
+      if (apiData) {
+        setPost({ ...toPost, id: resp.id });
+      } else setPost(toPost);
+    },
+    [
+      execute,
+      setPost,
+      apiData,
+      setIsUpdate,
+      post,
+      props.userTeamId,
+      value,
+      isUpdate,
+    ]
+  );
   return (
     <Box pad="small" alignContent="center" alignSelf="center">
-      <Form value={value} onChange={onChange} onSubmit={() => onSubmit()}>
+      {JSON.stringify(post)}
+      {JSON.stringify(isUpdate)}
+      <br></br>
+      {JSON.stringify(isLoading)}
+      <br></br>
+      {JSON.stringify(apiData)}
+      <br></br>
+      {JSON.stringify(serverError)}
+      <br></br>
+      <Form value={value} onChange={onChange} onSubmit={(e) => onSubmit(e)}>
         <Box direction="row">
           <FormField label="Energy" name="energy">
             <Select

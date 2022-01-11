@@ -1,4 +1,4 @@
-import { Text, Box, Grid, ResponsiveContext, Notification } from "grommet";
+import { Text, Box, Grid, ResponsiveContext } from "grommet";
 import { useContext } from "react";
 import { getUser } from "../../commons/auth/Auth";
 import { AccordionContainer } from "../../commons/components/AccordionContainer/AccordionContainer";
