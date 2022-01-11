@@ -7,6 +7,7 @@ import { EvaluationForm } from "../../components/evaluation/EvaluationForm";
 import * as Address from "../../commons/api/apiConstants";
 import { Evaluation } from "../../components/evaluation/EvaluationTypes";
 import * as Tools from "../../commons/utils";
+
 export const EventEvaluationPage = () => {
   const location = useLocation();
   const [users, setUsers] = useState([]);
@@ -29,16 +30,16 @@ export const EventEvaluationPage = () => {
   }
   return (
     <Box pad="medium">
-      from event{JSON.stringify(data)}
-      <br></br>
-      from users, mixed event and data {JSON.stringify(users)}
-      {/*   {JSON.stringify(apiData)} */}
-      <Text alignSelf="center" size="2xl" weight="bolder">
+      <Text
+        alignSelf="center"
+        size="2xl"
+        weight="bolder"
+        style={{
+          marginBottom: "20px",
+        }}
+      >
         {teamName}
       </Text>
-      <p>
-        event page with userTeamId {userTeamId} and teamId {id}
-      </p>
       <Grid
         style={{ marginBottom: "150px" }}
         columns={size !== "small" ? "small" : "100%"}

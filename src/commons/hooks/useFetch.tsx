@@ -110,7 +110,7 @@ export const useFetchPostOrUpdate = (options: fetchOptions) => {
 
   return { isLoading, apiData, serverError, execute };
 };
-
+//the new useFetch
 type Options = {
   method: string;
   body: any;
@@ -143,7 +143,6 @@ export const fetchit = async (
     });
 };
 
-//the new useFetch
 export const initialState = {
   loading: true,
   error: "",

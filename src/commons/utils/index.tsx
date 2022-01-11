@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Evaluation } from "../../components/evaluation/EvaluationTypes";
 export const mergeArrays = (oldArr: any, newArr: any) => {
-  console.log("old array", oldArr.length);
-  console.log("new array", newArr.length);
   if (oldArr.length > 0) {
     return [oldArr, newArr].reduce((a, b) =>
       a.map((c: any, i: string | number) => Object.assign({}, c, b[i]))
