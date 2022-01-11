@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useReducer } from "react";
 import axios from "axios";
 
 //TODO: refactor to use just one: useFetch or useFetchCallback
@@ -109,4 +109,71 @@ export const useFetchPostOrUpdate = (options: fetchOptions) => {
   );
 
   return { isLoading, apiData, serverError, execute };
+};
+
+type Options = {
+  method: string;
+  body: any;
+  headers: any;
+};
+
+function handleErrors(response: Response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response.json();
+}
+
+export const fetchit = async (
+  url: string,
+  dispatch: (r: any) => void,
+  options?: Options
+) => {
+  await fetch(url, {
+    method: options ? options.method : "GET",
+    body: options ? options.body : null,
+    headers: options ? options.headers : { Accept: "*" },
+  })
+    .then(handleErrors)
+    .then((response) => {
+      dispatch({ type: "FETCH_SUCCESS", payload: response });
+    })
+    .catch((error) => {
+      dispatch({ type: "FETCH_ERROR", payload: error.message });
+    });
+};
+
+//the new useFetch
+export const initialState = {
+  loading: true,
+  error: "",
+  post: {},
+};
+export const reducer = (state: any, action: any) => {
+  switch (action.type) {
+    case "FETCH_SUCCESS":
+      return { loading: false, post: action.payload, error: "" };
+    case "FETCH_ERROR":
+      return {
+        loading: false,
+        post: [],
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+export const useFetch2 = (url: string, options?: Options) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => {
+    fetchit(url, dispatch, options);
+  }, [url, dispatch]);
+  return { state };
+};
+export const useCallBackFetch = (url: string, options?: Options) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  useCallback(() => {
+    fetchit(url, dispatch, options);
+  }, [url, dispatch]);
+  return { state };
 };
