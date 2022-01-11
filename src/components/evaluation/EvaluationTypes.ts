@@ -1,5 +1,5 @@
 export interface Evaluation {
-  id: string;
+  id: number;
   username: string;
   energy: number;
   production: number;

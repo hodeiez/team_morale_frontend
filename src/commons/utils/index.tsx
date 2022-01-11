@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Evaluation } from "../../components/evaluation/EvaluationTypes";
 export const mergeArrays = (oldArr: any, newArr: any) => {
   if (oldArr.length > 0) {
     return [oldArr, newArr].reduce((a, b) =>
@@ -35,4 +36,26 @@ export const greyPalleteColors = {
   two: "#bfc1c2",
   three: "#cfcfc4",
   four: "#bebebe",
+};
+export const useEventSource = (url: string) => {
+  const [data, updateData] = useState<Evaluation[]>([]);
+  useEffect(() => {
+    const source = new EventSource(url);
+    console.log("waiting for event");
+    source.onmessage = function log(event) {
+      const eventData: Evaluation = JSON.parse(event.data).evaluation;
+      console.log("raw event data ", eventData);
+      updateData((oldData) => {
+        // it updates BASED ON evaluation ID
+        if (oldData.find((v) => v.id === eventData.id)) {
+          const updatedEvaluations = oldData.map((val) =>
+            val.id === eventData.id ? { ...val, ...eventData } : val
+          );
+          return updatedEvaluations;
+        }
+        return [...oldData, eventData];
+      });
+    };
+  }, []);
+  return data;
 };

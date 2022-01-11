@@ -7,6 +7,8 @@ import * as N from "../../commons/components/Notifications";
 import * as Address from "../../commons/api/apiConstants";
 import * as I from "grommet-icons";
 import { useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
+
+//TODO: fix update after first post, and implement validation.
 const options = [...new Array(10)].map((_, i) => {
   return { label: "level " + (i + 1), value: i + 1 };
 });
@@ -77,7 +79,7 @@ export function EvaluationForm(props: any) {
   );
   return (
     <Box pad="small" alignContent="center" alignSelf="center">
-      {JSON.stringify(post)}
+      {/*    {JSON.stringify(post)}
       {JSON.stringify(isUpdate)}
       <br></br>
       {JSON.stringify(isLoading)}
@@ -85,7 +87,7 @@ export function EvaluationForm(props: any) {
       {JSON.stringify(apiData)}
       <br></br>
       {JSON.stringify(serverError)}
-      <br></br>
+      <br></br> */}
       <Form value={value} onChange={onChange} onSubmit={(e) => onSubmit(e)}>
         <Box direction="row">
           <FormField label="Energy" name="energy">
