@@ -35,13 +35,16 @@ export const TeamsPage = () => {
       >
         {!apiData ? (
           !serverError ? (
-            Array.from({ length: 20 }).map((l: any) => <LoadingTeamCard />)
+            Array.from({ length: 20 }).map((l: any, i: number) => (
+              <LoadingTeamCard key={i} />
+            ))
           ) : (
             <N.Error message={serverError!.message} />
           )
         ) : (
           apiData!.map((t: any) => (
             <TeamCard
+              key={t.userTeamsId}
               userTeamsid={t.userTeamsId}
               name={t.name}
               startDate={t.startDate}

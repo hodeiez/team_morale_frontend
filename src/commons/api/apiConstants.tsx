@@ -5,7 +5,7 @@ export const login = (params?: any) => {
 };
 
 export const myTeams = () => {
-  return `${API_ENDPOINT}/team/my_teams/`;
+  return `${API_ENDPOINT}/team/myTeams/`;
 };
 export const sendEvaluation = () => {
   return `${API_ENDPOINT}/evaluation`;
@@ -15,4 +15,7 @@ export const getMyTeamsToday = (userTeamsId: number) => {
 };
 export const getEvent = (params?: any) => {
   return `${API_ENDPOINT}/evaluation/events?userTeamId=${params.userTeamId}`;
+};
+export const createTeamWithEmails = () => {
+  return `${API_ENDPOINT}/team/createTeamWithEmails/`;
 };

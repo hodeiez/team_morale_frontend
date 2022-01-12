@@ -80,7 +80,7 @@ type fetchOptions = {
 export const useFetchPostOrUpdate = (options: fetchOptions) => {
   const [isLoading, setIsLoading] = useState(false);
   const [apiData, setApiData] = useState(null);
-  const [serverError, setServerError] = useState(null);
+  const [serverError, setServerError] = useState<any>(null);
 
   const execute = useCallback(
     async (options: fetchOptions) => {
@@ -93,6 +93,7 @@ export const useFetchPostOrUpdate = (options: fetchOptions) => {
             data: options.body,
             headers: options.headers ? options.headers : { Accept: "*" },
           });
+
           const data: any = await resp?.data;
 
           setApiData(data);
