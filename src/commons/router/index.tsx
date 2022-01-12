@@ -5,7 +5,7 @@ import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { NavBar } from "../../components/nav/NavBar";
 import { AuthContext } from "../auth/AuthContext";
 import { useContext } from "react";
-import { isAuth } from "../auth/Auth";
+import { getUser, isAuth } from "../auth/Auth";
 import { TeamsPage } from "../../pages/team/TeamsPage";
 import { EventEvaluationPage } from "../../pages/event/EventEvaluationPage";
 import { NotAuthorized } from "../../pages/forbidden/NotAuthorized";
@@ -14,7 +14,11 @@ function BaseRoutes(props: any) {
   const { state } = useContext(AuthContext);
   return (
     <Router>
-      {isAuth() || state.auth ? <NavBar /> : <></>}
+      {isAuth() || state.auth ? (
+        <NavBar username={getUser().username} />
+      ) : (
+        <></>
+      )}
       <Routes>
         <Route path="/" element={<HomePage />} />
         {isAuth() || state.auth ? (

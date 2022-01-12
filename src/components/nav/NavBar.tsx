@@ -1,10 +1,10 @@
-import { Anchor, Box, Tip } from "grommet";
+import { Anchor, Text, Box, Tip } from "grommet";
 import * as S from "./styled";
 import * as Icons from "grommet-icons";
 import { AuthContext } from "../../commons/auth/AuthContext";
 import { useContext } from "react";
 
-export function NavBar() {
+export function NavBar(props: any) {
   const { dispatch } = useContext(AuthContext);
   return (
     <Box style={{ marginBottom: "100px" }}>
@@ -15,6 +15,15 @@ export function NavBar() {
         <Tip content="Teams">
           <Anchor icon={<Icons.Group color="black" />} href="/teams" />
         </Tip>
+        <Text
+          weight="bolder"
+          size="large"
+          alignSelf="center"
+          margin="auto"
+          style={{ marginRight: "0px" }}
+        >
+          {props.username}
+        </Text>
         <Tip content="Logout">
           <Anchor
             alignSelf="end"
