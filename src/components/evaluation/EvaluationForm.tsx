@@ -5,21 +5,14 @@ import * as Address from "../../commons/api/apiConstants";
 import * as I from "grommet-icons";
 import { useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
 
-//TODO: fix update after first post, and implement validation.
-const options = [...new Array(10)].map((_, i) => {
-  return { label: "level " + (i + 1), value: i + 1 };
-});
+//TODO: persist evaluation with id in case user refreshes the page?? and add error notification!.
+
 type Post = {
   energy: number;
   id?: number;
   production: number;
   user_teams: number;
   well_being: number;
-};
-
-const validateForm = (post: Post) => {
-  if (post.production & post.well_being & post.energy) return true;
-  return false;
 };
 
 export function EvaluationForm(props: any) {
@@ -36,6 +29,7 @@ export function EvaluationForm(props: any) {
 
   const onSubmit = (e: any) => {
     e.preventDefault();
+
     const updated = Object.keys(value)
       .sort()
       .reduce((acc: any, val: string) => {
@@ -49,8 +43,10 @@ export function EvaluationForm(props: any) {
     apiData
       ? setPost({ ...toPost, id: (apiData as Post).id })
       : setPost(toPost);
+
     setSubmit(true);
   };
+
   const postData = useCallback(async () => {
     await execute({
       url: Address.sendEvaluation(),
@@ -60,7 +56,11 @@ export function EvaluationForm(props: any) {
   }, [post]);
   useEffect(() => {
     if (submit) {
-      postData();
+      if (validateForm(post)) {
+        postData();
+      } else {
+        console.log("ERROR!!!");
+      }
     }
   }, [postData, submit]);
 
@@ -114,3 +114,11 @@ export function EvaluationForm(props: any) {
     </Box>
   );
 }
+
+const options = [...new Array(10)].map((_, i) => {
+  return { label: "level " + (i + 1), value: i + 1 };
+});
+
+const validateForm = (post: Post) => {
+  return post.production & post.well_being & post.energy;
+};
