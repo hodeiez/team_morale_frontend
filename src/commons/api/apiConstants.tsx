@@ -3,7 +3,9 @@ const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 export const login = (params?: any) => {
   return `${API_ENDPOINT}/user/login`;
 };
-
+export const signUp = (params?: any) => {
+  return `${API_ENDPOINT}/user/`;
+};
 export const myTeams = () => {
   return `${API_ENDPOINT}/team/myTeams/`;
 };

@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../../commons/auth/AuthContext";
 import { AccordionContainer } from "../../commons/components/AccordionContainer/AccordionContainer";
 import { LoginForm } from "../../components/login/LoginForm";
+import { SignUp } from "../../components/signup/SignUp";
 
 export const HomePage = () => {
   const { dispatch } = useContext(AuthContext);
@@ -28,7 +29,11 @@ export const HomePage = () => {
             children={<LoginForm color="accent-4" />}
             color="accent-4"
           />
-          <AccordionContainer name="Sign Up" color="status-warning" />
+          <AccordionContainer
+            name="Sign Up"
+            color="status-warning"
+            children={<SignUp color="status-warning" />}
+          />
         </Grid>
 
         <div style={{ textAlign: "center", marginTop: "20px" }}>
