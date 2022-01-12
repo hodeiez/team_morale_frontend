@@ -58,8 +58,8 @@ export const TeamCard = (props: any) => {
         />
       </CardBody>
       <Tip
-        content={props.members.map((member: string) => (
-          <Text size="small" alignSelf="center">
+        content={props.members.map((member: string, i: number) => (
+          <Text key={i} size="small" alignSelf="center">
             {member}
           </Text>
         ))}
