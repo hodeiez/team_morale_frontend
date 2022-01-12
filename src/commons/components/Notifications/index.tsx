@@ -19,7 +19,7 @@ export const Success = (props: NotificationT) => {
   return (
     <Notification
       toast
-      title="Error"
+      title="Success"
       message={props.message}
       status="normal"
       onClose={() => {}}
