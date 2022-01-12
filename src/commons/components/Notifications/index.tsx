@@ -15,3 +15,14 @@ export const Error = (props: NotificationT) => {
     />
   );
 };
+export const Success = (props: NotificationT) => {
+  return (
+    <Notification
+      toast
+      title="Error"
+      message={props.message}
+      status="normal"
+      onClose={() => {}}
+    />
+  );
+};

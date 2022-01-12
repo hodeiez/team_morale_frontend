@@ -4,6 +4,13 @@ import { MemberField } from "./MemberField";
 import { useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
 import * as Address from "../../commons/api/apiConstants";
 import { getUser } from "../../commons/auth/Auth";
+import * as N from "../../commons/components/Notifications";
+
+type Team = {
+  id: number;
+  name: string;
+  members: string[];
+};
 
 export const CreateTeamForm = () => {
   const { isLoading, apiData, serverError, execute } = useFetchPostOrUpdate({
@@ -34,15 +41,6 @@ export const CreateTeamForm = () => {
       body: team,
       headers: { Authorization: getUser().email },
     });
-    /*  fetchit(API.createTeam(), dispatch, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(team),
-    }); */
-    console.log(team);
   };
   return (
     <Form onChange={setupPost} onSubmit={submit}>
@@ -69,8 +67,19 @@ export const CreateTeamForm = () => {
       <Box pad="large" style={{ display: "flex", justifyContent: "center" }}>
         <Button type="submit" color="accent-4" label="Submit" primary />
       </Box>
-      {serverError}
-      {/*  {state.loading ? "" : alert(JSON.stringify(state.post))} */}
+      {serverError ? <N.Error message={serverError} /> : <></>}
+      {apiData ? (
+        <N.Success
+          message={
+            (apiData! as Team).name +
+            "created with " +
+            (apiData! as Team).members +
+            " members"
+          }
+        />
+      ) : (
+        <></>
+      )}
     </Form>
   );
 };
