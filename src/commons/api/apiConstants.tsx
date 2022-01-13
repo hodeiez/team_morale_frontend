@@ -12,6 +12,9 @@ export const myTeams = () => {
 export const sendEvaluation = () => {
   return `${API_ENDPOINT}/evaluation`;
 };
+export const createOrUpdate = () => {
+  return `${API_ENDPOINT}/evaluation/createOrUpdate/`;
+};
 export const getMyTeamsToday = (userTeamsId: number) => {
   return `${sendEvaluation()}/myTeamToday/${userTeamsId}`;
 };

@@ -1,9 +1,9 @@
 export interface Evaluation {
   id: number;
-  username: string;
+  username?: string;
   energy: number;
   production: number;
   well_being: number;
-  team: string;
-  date: string;
+  team?: string;
+  date?: string;
 }

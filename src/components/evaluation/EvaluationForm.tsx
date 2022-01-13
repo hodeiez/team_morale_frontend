@@ -21,7 +21,7 @@ export function EvaluationForm(props: any) {
   const [submit, setSubmit] = useState(false);
 
   const { isLoading, apiData, serverError, execute } = useFetchPostOrUpdate({
-    url: Address.sendEvaluation(),
+    url: Address.createOrUpdate(),
   });
   const onChange = useCallback((nextValue) => {
     setValue(nextValue);
@@ -49,14 +49,18 @@ export function EvaluationForm(props: any) {
 
   const postData = useCallback(async () => {
     await execute({
-      url: Address.sendEvaluation(),
-      method: post.id ? "PUT" : "POST",
+      url: Address.createOrUpdate(),
+      method: "POST",
       body: post,
     });
+    setSubmit(false);
   }, [post]);
   useEffect(() => {
     if (submit) {
+      console.log(post);
+      console.log(validateForm(post));
       if (validateForm(post)) {
+        console.log(post);
         postData();
       } else {
         console.log("ERROR!!!");
@@ -66,9 +70,27 @@ export function EvaluationForm(props: any) {
 
   return (
     <Box pad="small" alignContent="center" alignSelf="center">
+      {!isLoading && apiData && !serverError && (
+        <N.MyToaster
+          message={
+            "energy: " +
+            post.energy +
+            " production: " +
+            post.production +
+            " well_being: " +
+            post.well_being +
+            " sent!"
+          }
+          visible={submit}
+          type=""
+        />
+      )}
+      {!isLoading && serverError && (
+        <N.MyToaster message={serverError} visible={true} type="ERROR" />
+      )}
       <Form value={value} onChange={onChange} onSubmit={(e) => onSubmit(e)}>
         <Box direction="row">
-          <FormField label="Energy" name="energy">
+          <FormField label="Energy" name="energy" required>
             <Select
               name="energy"
               placeholder="level"
@@ -78,7 +100,7 @@ export function EvaluationForm(props: any) {
               icon={<I.CaretDownFill color="dark-4" />}
             />
           </FormField>
-          <FormField label="Production" name="production">
+          <FormField label="Production" name="production" required>
             <Select
               name="production"
               placeholder="level"
@@ -88,7 +110,7 @@ export function EvaluationForm(props: any) {
               icon={<I.CaretDownFill color="dark-4" />}
             />
           </FormField>
-          <FormField label="Well-being" name="well_being">
+          <FormField label="Well-being" name="well_being" required>
             <Select
               name="well_being"
               placeholder="level"
@@ -120,5 +142,5 @@ const options = [...new Array(10)].map((_, i) => {
 });
 
 const validateForm = (post: Post) => {
-  return post.production & post.well_being & post.energy;
+  return post.production && post.well_being && post.energy;
 };
