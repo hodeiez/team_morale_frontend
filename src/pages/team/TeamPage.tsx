@@ -13,7 +13,6 @@ export const TeamPage = () => {
   const { state } = useFetch2(oneTeam(id));
   return (
     <Box margin="10%">
-      {JSON.stringify(state.post)}
       <Text
         size="2xl"
         alignSelf="center"
@@ -27,7 +26,11 @@ export const TeamPage = () => {
           color="status-ok"
           name="Edit team"
           children={
-            <EditTeamForm members={state.post.members} name={state.post.name} />
+            <EditTeamForm
+              members={state.post.members}
+              name={state.post.name}
+              membersEmail={state.post.membersEmail}
+            />
           }
         />
       </Box>

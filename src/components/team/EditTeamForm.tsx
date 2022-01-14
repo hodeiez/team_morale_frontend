@@ -15,12 +15,9 @@ type Props = {
   style?: any;
   members: string[];
   name: string;
+  membersEmail: string[];
 };
 
-/* const mockUp = [
-  { username: "hodei", email: "hodei@email.com" },
-  { username: "batman", email: "bat@man.com" },
-]; */
 export const EditTeamForm = (props: Props) => {
   const size = useContext(ResponsiveContext);
   const [member, setMember] = useState(0);
@@ -40,7 +37,7 @@ export const EditTeamForm = (props: Props) => {
       </FormField>
       <Box direction="column" align="center" style={{ marginTop: "15px" }}>
         <Text size="small">Actual members, click to unsubscribe</Text>
-        {props.members.map((u: any) => (
+        {mergeNameAndEmail(props.members, props.membersEmail).map((u: any) => (
           <Box
             direction="row"
             margin="5px"
@@ -55,14 +52,14 @@ export const EditTeamForm = (props: Props) => {
               margin="auto"
               style={{ marginLeft: 0 }}
             >
-              {u}
+              {u.members}
             </Text>
             <Text
               size={size === "small" ? "small" : "medium"}
               alignSelf="center"
               margin="auto"
             >
-              {u}
+              {u.email}
             </Text>
             <Text
               size={size === "small" ? "small" : "medium"}
@@ -98,6 +95,17 @@ export const EditTeamForm = (props: Props) => {
       <Box pad="large" style={{ display: "flex", justifyContent: "center" }}>
         <Button type="submit" color="accent-4" label="Update" primary />
       </Box>
+      <Box
+        pad="large"
+        style={{ display: "flex", justifyContent: "center", marginTop: "2px" }}
+      >
+        <Button color="status-critical" label="Delete TEAM" primary />
+      </Box>
     </Form>
   );
+};
+const mergeNameAndEmail = (usernameArr: string[], emailArr: string[]) => {
+  return usernameArr.map((name, index) => {
+    return { members: name, email: emailArr[index] };
+  });
 };
