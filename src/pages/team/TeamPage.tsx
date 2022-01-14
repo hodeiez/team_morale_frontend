@@ -39,6 +39,7 @@ export const TeamPage = () => {
         round
         alignSelf="center"
         style={{ marginBottom: "40px" }}
+        width={"100%"}
       >
         <Text alignSelf="center" size="large">
           Stats

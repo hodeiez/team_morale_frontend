@@ -61,7 +61,7 @@ export const LineGraph = (props: Props) => {
     setData(state.post);
   }, [state]);
   return (
-    <>
+    <ResponsiveContainer width={"100%"} height={400}>
       <LineChart
         width={800}
         height={400}
@@ -133,7 +133,6 @@ export const LineGraph = (props: Props) => {
           legendType="rect"
         />
       </LineChart>
-    </>
-    /*   </ResponsiveContainer> */
+    </ResponsiveContainer>
   );
 };
