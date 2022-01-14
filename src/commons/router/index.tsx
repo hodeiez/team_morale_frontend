@@ -9,6 +9,7 @@ import { getUser, isAuth } from "../auth/Auth";
 import { TeamsPage } from "../../pages/team/TeamsPage";
 import { EventEvaluationPage } from "../../pages/event/EventEvaluationPage";
 import { NotAuthorized } from "../../pages/forbidden/NotAuthorized";
+import { TeamPage } from "../../pages/team/TeamPage";
 
 function BaseRoutes(props: any) {
   const { state } = useContext(AuthContext);
@@ -27,6 +28,7 @@ function BaseRoutes(props: any) {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/teams" element={<TeamsPage />} />
             <Route path="/event" element={<EventEvaluationPage />} />
+            <Route path="/team/*" element={<TeamPage />} />
           </>
         ) : (
           <>

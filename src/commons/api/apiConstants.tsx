@@ -9,6 +9,9 @@ export const signUp = (params?: any) => {
 export const myTeams = () => {
   return `${API_ENDPOINT}/team/myTeams/`;
 };
+export const oneTeam = (id: number) => {
+  return `${API_ENDPOINT}/team/id/${id}`;
+};
 export const sendEvaluation = () => {
   return `${API_ENDPOINT}/evaluation`;
 };
@@ -23,4 +26,7 @@ export const getEvent = (params?: any) => {
 };
 export const createTeamWithEmails = () => {
   return `${API_ENDPOINT}/team/createTeamWithEmails/`;
+};
+export const getTeamAverageHistory = (teamId: number) => {
+  return `${sendEvaluation()}/stats/team/${teamId}`;
 };

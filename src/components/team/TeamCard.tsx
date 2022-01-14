@@ -34,8 +34,9 @@ export const TeamCard = (props: any) => {
           onClick={() =>
             history(`/team/${props.name}`, {
               state: {
-                userTeamId: props.userTeamsId,
+                userTeamId: props.userTeamsid,
                 id: props.id,
+                teamName: props.name,
               },
             })
           }

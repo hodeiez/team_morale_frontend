@@ -1,4 +1,5 @@
 import { Grommet } from "grommet";
+import * as I from "grommet-icons";
 import "./App.css";
 import { AuthProvider } from "./commons/auth/AuthContext";
 import BaseRoutes from "./commons/router";
@@ -12,6 +13,20 @@ const theme = {
     colors: {
       focus: "accent-4",
       background: "#f0dcc9",
+    },
+  },
+  checkBox: {
+    hover: {
+      border: {
+        color: "status-warning",
+      },
+    },
+    color: "status-warning",
+    border: {
+      color: "accent-4",
+    },
+    icons: {
+      checked: () => <I.Trash color="red" size="20px" />,
     },
   },
 };

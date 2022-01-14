@@ -1,7 +1,11 @@
 import { Box, ThemeContext, Accordion, AccordionPanel } from "grommet";
 import * as S from "./styled";
-
-export const AccordionContainer = (props: any) => {
+type Props = {
+  color: string;
+  name: string;
+  children: any;
+};
+export const AccordionContainer = (props: Props) => {
   const color = props.color;
   const richAccordionTheme = {
     accordion: {
@@ -39,9 +43,9 @@ export const AccordionContainer = (props: any) => {
             <Box
               background="light-3"
               round="10px"
-              /* overflow="auto" */ height="medium"
+              /* overflow="auto" */ height="auto"
             >
-              <Box height="large" pad="medium">
+              <Box height="auto" pad="medium">
                 {props.children}
               </Box>
             </Box>
