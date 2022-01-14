@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import { getTeamAverageHistory } from "../../commons/api/apiConstants";
 import { useFetch2 } from "../../commons/hooks/useFetch";
-const myMockData = [
+/* const myMockData = [
   {
     date: "2021-12-06",
     energyDev: 0,
@@ -38,7 +38,7 @@ const myMockData = [
     productionAvg: 5,
     wellBeingAvg: 9,
   },
-];
+]; */
 type GraphData = {
   date: string;
   energyDev: number;
