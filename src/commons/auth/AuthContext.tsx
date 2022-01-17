@@ -23,13 +23,11 @@ export type Action =
 export const authReducer = (state: InitialStateType, action: Action) => {
   switch (action.type) {
     case "LOGIN":
-      Auth.setCredentials(
-        JSON.stringify({
-          ...action.user,
-          token: action.token,
-          auth: action.auth,
-        })
-      );
+      Auth.setCredentials({
+        ...action.user,
+        token: action.token,
+        auth: action.auth,
+      });
       return {
         ...state,
         ...{

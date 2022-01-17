@@ -7,7 +7,7 @@ import { useContext } from "react";
 export function NavBar(props: any) {
   const { dispatch } = useContext(AuthContext);
   return (
-    <Box style={{ marginBottom: "100px" }}>
+    <Box style={{ marginBottom: "100px", position: "relative", zIndex: 1 }}>
       <S.NavBar direction="row" background="accent-4" pad="medium">
         <Tip content="Profile">
           <Anchor icon={<Icons.User color="black" />} href="/profile" />

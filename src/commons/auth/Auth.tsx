@@ -1,7 +1,14 @@
 import { User } from "./AuthContext";
 
-export const setCredentials = (credentials: any) => {
-  localStorage.setItem("credentials", credentials);
+type Credentials = {
+  username: string;
+  email: string;
+  token: string;
+  auth: boolean;
+};
+
+export const setCredentials = (credentials: Credentials) => {
+  localStorage.setItem("credentials", JSON.stringify(credentials));
 };
 export const getCredentials = () => {
   return localStorage.getItem("credentials");
@@ -18,4 +25,11 @@ export const getUser = () => {
         email: JSON.parse(credentials!).email,
       } as User)
     : { username: "", email: "" };
+};
+export const updateUserName = (username: any) => {
+  const updated = {
+    ...JSON.parse(getCredentials()!),
+    ...username,
+  };
+  setCredentials(updated);
 };

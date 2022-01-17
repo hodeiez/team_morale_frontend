@@ -33,3 +33,6 @@ export const getTeamAverageHistory = (teamId: number) => {
 export const getMyStats = () => {
   return `${API_ENDPOINT}/user/getMyStats`;
 };
+export const updateMe = () => {
+  return `${API_ENDPOINT}/user/updateMe`;
+};

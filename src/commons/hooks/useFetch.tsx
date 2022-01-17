@@ -73,7 +73,7 @@ export const useFetchCallback = (
 };
 type fetchOptions = {
   method?: any;
-  url: string;
+  url?: string;
   headers?: any;
   body?: any;
 };

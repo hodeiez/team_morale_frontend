@@ -30,10 +30,11 @@ export const TeamPage = () => {
       </Box>
       <GS.Title2>Stats</GS.Title2>
       <Box
-        background="white"
         round
         alignSelf="center"
-        style={{ marginBottom: "40px" }}
+        style={{
+          marginBottom: "40px",
+        }}
         width={"100%"}
       >
         <LineGraph id={id} />
