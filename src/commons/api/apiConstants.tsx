@@ -30,3 +30,6 @@ export const createTeamWithEmails = () => {
 export const getTeamAverageHistory = (teamId: number) => {
   return `${sendEvaluation()}/stats/team/${teamId}`;
 };
+export const getMyStats = () => {
+  return `${API_ENDPOINT}/user/getMyStats`;
+};

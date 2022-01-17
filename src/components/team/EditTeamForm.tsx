@@ -8,6 +8,7 @@ import {
   TextInput,
   ResponsiveContext,
 } from "grommet";
+
 import { useCallback, useContext, useState } from "react";
 import { MemberField } from "./MemberField";
 import * as S from "./styled";
@@ -36,7 +37,9 @@ export const EditTeamForm = (props: Props) => {
         />
       </FormField>
       <Box direction="column" align="center" style={{ marginTop: "15px" }}>
-        <Text size="small">Actual members, click to unsubscribe</Text>
+        <Text size="small">
+          Actual members, click check box to UNSUBSCRIBE a member
+        </Text>
         {mergeNameAndEmail(props.members, props.membersEmail).map((u: any) => (
           <Box
             direction="row"

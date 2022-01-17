@@ -1,5 +1,5 @@
-import { Box, Text } from "grommet";
-
+import { Box } from "grommet";
+import * as GS from "../../commons/styles/styles";
 import { useLocation } from "react-router-dom";
 import { AccordionContainer } from "../../commons/components/AccordionContainer/AccordionContainer";
 import { useFetch2 } from "../../commons/hooks/useFetch";
@@ -13,14 +13,8 @@ export const TeamPage = () => {
   const { state } = useFetch2(oneTeam(id));
   return (
     <Box margin="10%">
-      <Text
-        size="2xl"
-        alignSelf="center"
-        weight="bolder"
-        style={{ marginBottom: "40px" }}
-      >
-        {teamName}
-      </Text>
+      <GS.Title2>{teamName}</GS.Title2>
+
       <Box background="light-1" round style={{ marginBottom: "40px" }}>
         <AccordionContainer
           color="status-ok"
@@ -34,6 +28,7 @@ export const TeamPage = () => {
           }
         />
       </Box>
+      <GS.Title2>Stats</GS.Title2>
       <Box
         background="white"
         round
@@ -41,9 +36,6 @@ export const TeamPage = () => {
         style={{ marginBottom: "40px" }}
         width={"100%"}
       >
-        <Text alignSelf="center" size="large">
-          Stats
-        </Text>
         <LineGraph id={id} />
       </Box>
       <Box style={{ marginBottom: "40px" }}></Box>

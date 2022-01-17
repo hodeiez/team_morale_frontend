@@ -113,8 +113,8 @@ export const useFetchPostOrUpdate = (options: fetchOptions) => {
 };
 //the new useFetch
 type Options = {
-  method: string;
-  body: any;
+  method?: string;
+  body?: any;
   headers: any;
 };
 

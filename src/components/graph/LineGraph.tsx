@@ -56,10 +56,15 @@ type Props = {
 export const LineGraph = (props: Props) => {
   const [data, setData] = useState<any>({});
   //testing!!!
+
   const { state } = useFetch2(getTeamAverageHistory(props.id));
+
   useEffect(() => {
-    setData(state.post);
+    if (!props.data) {
+      setData(state.post);
+    } else setData(props.data);
   }, [state]);
+
   return (
     <ResponsiveContainer width={"100%"} height={400}>
       <LineChart
