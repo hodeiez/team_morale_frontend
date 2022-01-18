@@ -1,5 +1,4 @@
 import {
-  CheckBox,
   Text,
   Box,
   Button,
@@ -9,7 +8,7 @@ import {
   ResponsiveContext,
 } from "grommet";
 
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { MemberField } from "./MemberField";
 import * as S from "./styled";
 type Props = {
@@ -21,18 +20,34 @@ type Props = {
 };
 
 export const EditTeamForm = (props: Props) => {
-  const size = useContext(ResponsiveContext);
+  const [updatedMembers, setUpdatedMembers] = useState<any>();
+
+  const removeMember = useCallback((member: any) => {
+    setUpdatedMembers(member.value);
+
+    console.log(member.value);
+  }, []);
+
   const [member, setMember] = useState(0);
+
   const addMember = useCallback(() => {
     setMember(member + 1);
   }, [member]);
 
+  const setUpTeam = (form: any) => {
+    console.log(form);
+  };
+
+  const submitTeam = (value: any) => {
+    /*    e.preventDefault(); */
+    console.log(value.value);
+  };
   return (
-    <Form onChange={() => {}} onSubmit={() => {}}>
+    <Form onChange={setUpTeam} onSubmit={submitTeam}>
       <FormField name="name" label="Team name">
         <TextInput
-          id="name-input"
-          name="teamName"
+          id="name"
+          name="name"
           placeholder={props.name}
           defaultValue={props.name}
         />
@@ -41,41 +56,15 @@ export const EditTeamForm = (props: Props) => {
         <Text size="small">
           Actual members, click check box to UNSUBSCRIBE a member
         </Text>
-        {mergeNameAndEmail(props.members, props.membersEmail).map((u: any) => (
-          <Box
-            direction="row"
-            margin="5px"
-            background="white"
-            round
-            width="75%"
-            pad="10px"
-          >
-            <Text
-              size={size === "small" ? "small" : "medium"}
-              alignSelf="start"
-              margin="auto"
-              style={{ marginLeft: 0 }}
-            >
-              {u.members}
-            </Text>
-            <Text
-              size={size === "small" ? "small" : "medium"}
-              alignSelf="center"
-              margin="auto"
-            >
-              {u.email}
-            </Text>
-            <Text
-              size={size === "small" ? "small" : "medium"}
-              margin="auto"
-              alignSelf="end"
-              textAlign="end"
-              style={{ marginRight: 0 }}
-            >
-              <S.CheckTrash width={size === "small" ? 1 : "medium"} />
-            </Text>
-          </Box>
-        ))}
+        <FormField name="membersToRemove">
+          <S.CheckTrash
+            id="membersToRemove"
+            name="membersToRemove"
+            options={props.membersEmail}
+            onChange={removeMember}
+          />
+        </FormField>
+        {JSON.stringify(updatedMembers)}
       </Box>
       <Box
         direction="row"
