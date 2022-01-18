@@ -36,3 +36,6 @@ export const getMyStats = () => {
 export const updateMe = () => {
   return `${API_ENDPOINT}/user/updateMe`;
 };
+export const updatePassword = () => {
+  return `${API_ENDPOINT}/user/changePass`;
+};

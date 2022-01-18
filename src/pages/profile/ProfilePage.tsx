@@ -14,17 +14,25 @@ import * as GS from "../../commons/styles/styles";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { getUser, updateUserName } from "../../commons/auth/Auth";
 import { useFetch2, useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
-import { getMyStats, updateMe } from "../../commons/api/apiConstants";
+import {
+  getMyStats,
+  updateMe,
+  updatePassword,
+} from "../../commons/api/apiConstants";
 import { LineGraph } from "../../components/graph/LineGraph";
 import * as N from "../../commons/components/Notifications";
+import { MaxAndMin } from "../../components/dataReview/MaxAndMin";
 
 export const ProfilePage = () => {
+  const size = useContext(ResponsiveContext);
   const [stats, setStats] = useState<any>();
   const { state } = useFetch2(getMyStats(), {
     headers: { Authorization: getUser().email },
   });
   const [userName, setUserName] = useState<any>({});
+  const [userPass, setUserPass] = useState<any>({});
   const { isLoading, apiData, serverError, execute } = useFetchPostOrUpdate({});
+
   const setUpNewName = useCallback((username: any) => {
     setUserName(username);
   }, []);
@@ -38,6 +46,18 @@ export const ProfilePage = () => {
       headers: { Authorization: getUser().email },
     });
   };
+  const setUpNewPassword = useCallback((pass: any) => {
+    setUserPass(pass);
+  }, []);
+  const sendUpdatedPass = async (e: any) => {
+    e.preventDefault();
+    await execute({
+      url: updatePassword(),
+      body: userPass,
+      method: "POST",
+      headers: { Authorization: getUser().email },
+    });
+  };
 
   useEffect(() => {
     if (!state.loading) setStats(state.post);
@@ -46,7 +66,7 @@ export const ProfilePage = () => {
   useEffect(() => {
     apiData && updateUserName(userName);
   }, [apiData]);
-  const size = useContext(ResponsiveContext);
+
   return (
     <Box>
       <GS.Title2>Personal details</GS.Title2>
@@ -58,7 +78,7 @@ export const ProfilePage = () => {
         <Box align="center">
           <GS.Title4>About me</GS.Title4>
           <Form onChange={setUpNewName} onSubmit={sendUpdatedName}>
-            <FormField name="username">
+            <FormField name="username" required>
               <TextInput
                 id="username-input"
                 name="username"
@@ -75,19 +95,19 @@ export const ProfilePage = () => {
         </Box>
         <Box align="center">
           <GS.Title4>Update password</GS.Title4>
-          <Form onChange={setUpNewName} onSubmit={() => {}}>
-            <FormField name="old-pass">
+          <Form onChange={setUpNewPassword} onSubmit={sendUpdatedPass}>
+            <FormField name="oldPassword" required>
               <TextInput
-                id="old-pass"
-                name="old-pass"
+                id="oldPassword"
+                name="oldPassword"
                 placeholder="old pass here"
                 type="password"
               />
             </FormField>
-            <FormField name="new-pass">
+            <FormField name="password">
               <TextInput
-                id="new-pass"
-                name="new-pass"
+                id="password"
+                name="password"
                 placeholder="new pass here"
                 type="password"
               />
@@ -112,8 +132,15 @@ export const ProfilePage = () => {
           />
         )}
       </Box>
-
+      <Box margin="large" align="center">
+        {stats && !state.error && <MaxAndMin data={stats.maxMinCalculations} />}
+      </Box>
+      {apiData && <N.Success message="updated!" />}
       {state.error && <N.Error message={state.error} />}
+      {serverError && <N.Error message={serverError} />}
+      {/*  {apiData && <N.MyToaster message="updated!" />}
+      {state.error && <N.MyToaster message={state.error} />}
+      {serverError && <N.MyToaster message={serverError} />} */}
     </Box>
   );
 };

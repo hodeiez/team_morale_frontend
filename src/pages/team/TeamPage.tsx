@@ -24,6 +24,7 @@ export const TeamPage = () => {
               members={state.post.members}
               name={state.post.name}
               membersEmail={state.post.membersEmail}
+              userTeamId={userTeamId}
             />
           }
         />

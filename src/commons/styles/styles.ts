@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Text } from "grommet";
+import React from "react";
 
 type TextProps = {
   size?: string;
@@ -22,7 +23,14 @@ export const Title4 = styled(Text).attrs<TextProps>({
   margin-bottom: 20px;
   margin-top: 10px;
 `;
+export const colorStyled: ColorsS = {
+  energy: "#8884d8",
+  production: "#BF3F3F",
+  wellBeing: "#82ca9d",
+};
 
-/* <Text alignSelf="center" size="2xl" weight="bolder">
-        Stats
-      </Text> */
+type ColorsS = {
+  energy: string;
+  production: string;
+  wellBeing: string;
+};

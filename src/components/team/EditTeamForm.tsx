@@ -17,6 +17,7 @@ type Props = {
   members: string[];
   name: string;
   membersEmail: string[];
+  userTeamId: number;
 };
 
 export const EditTeamForm = (props: Props) => {
