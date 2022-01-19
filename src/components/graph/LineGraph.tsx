@@ -10,35 +10,7 @@ import {
 } from "recharts";
 import { getTeamAverageHistory } from "../../commons/api/apiConstants";
 import { useFetch2 } from "../../commons/hooks/useFetch";
-/* const myMockData = [
-  {
-    date: "2021-12-06",
-    energyDev: 0,
-    productionDev: 0,
-    wellBeingDev: 0,
-    energyAvg: 0,
-    productionAvg: 0,
-    wellBeingAvg: 0,
-  },
-  {
-    date: "2021-11-30",
-    energyDev: 2.1650635094610964,
-    productionDev: 2.1650635094610964,
-    wellBeingDev: 1.299038105676658,
-    energyAvg: 5.75,
-    productionAvg: 8.75,
-    wellBeingAvg: 0.75,
-  },
-  {
-    date: "2021-12-06",
-    energyDev: 0,
-    productionDev: 0,
-    wellBeingDev: 0.12,
-    energyAvg: 3,
-    productionAvg: 5,
-    wellBeingAvg: 9,
-  },
-]; */
+
 type GraphData = {
   date: string;
   energyDev: number;

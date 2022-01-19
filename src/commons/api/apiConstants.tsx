@@ -39,3 +39,12 @@ export const updateMe = () => {
 export const updatePassword = () => {
   return `${API_ENDPOINT}/user/changePass`;
 };
+export const updateTeam = () => {
+  return `${API_ENDPOINT}/team/update`;
+};
+export const deleteTeam = (userTeamId: number) => {
+  return `${API_ENDPOINT}/team/delete/full/userTeam/${userTeamId}`;
+};
+export const unsubscribeMe = (teamId: number) => {
+  return `${API_ENDPOINT}/team/unsubscribeMe/from/${teamId}`;
+};

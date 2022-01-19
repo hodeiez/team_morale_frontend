@@ -41,7 +41,7 @@ export const ProfilePage = () => {
     await execute({
       url: updateMe(),
       body: userName,
-      method: "POST",
+      method: "PUT",
       headers: { Authorization: getUser().email },
     });
   };

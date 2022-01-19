@@ -6,11 +6,13 @@ import { useFetch2 } from "../../commons/hooks/useFetch";
 import { LineGraph } from "../../components/graph/LineGraph";
 import { EditTeamForm } from "../../components/team/EditTeamForm";
 import { oneTeam } from "../../commons/api/apiConstants";
+
 export const TeamPage = () => {
   const location = useLocation();
 
   const { userTeamId, id, teamName } = location.state as any;
   const { state } = useFetch2(oneTeam(id));
+
   return (
     <Box margin="10%">
       <GS.Title2>{teamName}</GS.Title2>
@@ -25,6 +27,7 @@ export const TeamPage = () => {
               name={state.post.name}
               membersEmail={state.post.membersEmail}
               userTeamId={userTeamId}
+              teamId={id}
             />
           }
         />
