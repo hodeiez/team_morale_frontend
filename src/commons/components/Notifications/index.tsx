@@ -45,7 +45,7 @@ export const MyToaster = (props: NotificationT) => {
       title="Success"
       message={props.message}
       status="normal"
-      onClose={() => setVisible(false)}
+      onClose={() => setVisible(undefined)}
     />
   );
 };

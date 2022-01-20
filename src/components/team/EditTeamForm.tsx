@@ -14,6 +14,8 @@ import { getUser } from "../../commons/auth/Auth";
 import { useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
 import { MemberField } from "./MemberField";
 import * as S from "./styled";
+import { useNavigate } from "react-router-dom";
+import Loading from "../../commons/components/Loading/Loading";
 
 type PostTeamUpdate = {
   membersToRemove: string[];
@@ -32,6 +34,7 @@ type Props = {
 };
 
 export const EditTeamForm = (props: Props) => {
+  const history = useNavigate();
   const size = useContext(ResponsiveContext);
   const [teamInfo, setTeamInfo] = useState<any>({
     name: props.name,
@@ -87,8 +90,8 @@ export const EditTeamForm = (props: Props) => {
       method: "PUT",
       headers: { Authorization: getUser().email },
     });
-    console.log(teamToUpdate);
   };
+
   useEffect(() => {
     apiData
       ? setTeamInfo(apiData)
@@ -97,13 +100,12 @@ export const EditTeamForm = (props: Props) => {
           membersEmail: props.membersEmail,
           members: props.members,
         });
+
     setMember(0);
   }, [apiData, setTeamInfo, props]);
 
   return (
     <Form onSubmit={submitTeam}>
-      {JSON.stringify({ unsubMeApiData })}
-      {JSON.stringify({ deleteTeamApiData })}
       <FormField name="name" label="Team name">
         <TextInput
           id="name"
@@ -111,8 +113,6 @@ export const EditTeamForm = (props: Props) => {
           placeholder={teamInfo.name}
           defaultValue={teamInfo.name}
         />
-        {/*  */}
-        {JSON.stringify(serverError)}
       </FormField>
       <Box direction="column" align="center" style={{ marginTop: "15px" }}>
         <Text size="small">
@@ -186,9 +186,31 @@ export const EditTeamForm = (props: Props) => {
           onClick={unsubscribeMe}
         />
       </Box>
-      {apiData && <N.Success message="updated!" />}
 
-      {serverError && <N.Error message={serverError} />}
+      <Box height="1px">
+        {isLoading && <Loading />}
+        {unsubMeIsLoading && <Loading />}
+        {deleteTeamIsLoading && <Loading />}
+      </Box>
+
+      {apiData && !isLoading && !serverError && (
+        <N.MyToaster message="updated!" visible={true} />
+      )}
+
+      {(unsubMeApiData || deleteTeamApiData) && history("/teams")}
+      {serverError && !isLoading && (
+        <N.MyToaster type="ERROR" message={serverError} visible={true} />
+      )}
+      {unsubMeServerError && !unsubMeIsLoading && (
+        <N.MyToaster type="ERROR" message={unsubMeServerError} visible={true} />
+      )}
+      {deleteTeamServerError && !deleteTeamIsLoading && (
+        <N.MyToaster
+          type="ERROR"
+          message={deleteTeamServerError}
+          visible={true}
+        />
+      )}
     </Form>
   );
 };

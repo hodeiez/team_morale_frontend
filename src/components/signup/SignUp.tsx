@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useFetchCallback } from "./../../commons/hooks/useFetch";
 import { signUp } from "../../commons/api/apiConstants";
 import { AuthContext } from "../../commons/auth/AuthContext";
+import Loading from "../../commons/components/Loading/Loading";
 type UserSignUp = {
   email: string;
   password: string;
@@ -66,6 +67,7 @@ export const SignUp = (props: any) => {
           {serverError}
         </Text>
       </Form>
+      <Box height="1px">{isLoading && <Loading />}</Box>
     </Box>
   );
 };

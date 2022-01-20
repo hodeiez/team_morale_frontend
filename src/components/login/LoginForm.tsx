@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useFetchCallback } from "./../../commons/hooks/useFetch";
 import { login } from "../../commons/api/apiConstants";
 import { AuthContext } from "../../commons/auth/AuthContext";
+import Loading from "../../commons/components/Loading/Loading";
 type UserCreds = {
   email: string;
   password: string;
@@ -58,10 +59,13 @@ export const LoginForm = (props: any) => {
         <Button type="submit" label="Submit" primary color={props.color} />
 
         <br></br>
-        <Text margin={{ left: "small" }} size="small" color="status-critical">
-          {serverError}
-        </Text>
+        {serverError && !isLoading && (
+          <Text margin={{ left: "small" }} size="small" color="status-critical">
+            {serverError}
+          </Text>
+        )}
       </Form>
+      <Box height="1px">{isLoading && <Loading />}</Box>
     </Box>
   );
 };

@@ -1,7 +1,7 @@
 import { Box, Grid, Layer, ResponsiveContext, Text } from "grommet";
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useFetch, useFetch2 } from "../../commons/hooks/useFetch";
+import { useFetch2 } from "../../commons/hooks/useFetch";
 import { EvaluationCard } from "../../components/evaluation/EvaluationCard";
 import { EvaluationForm } from "../../components/evaluation/EvaluationForm";
 import * as Address from "../../commons/api/apiConstants";
