@@ -8,7 +8,7 @@ import {
   Button,
 } from "grommet";
 import { useNavigate } from "react-router-dom";
-import * as I from "grommet-icons";
+
 import { useRandomColorCard, greyPalleteColors } from "../../commons/utils";
 export const TeamCard = (props: any) => {
   const history = useNavigate();

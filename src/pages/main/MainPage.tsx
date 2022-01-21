@@ -1,15 +1,13 @@
 import { Box, Grid, Text } from "grommet";
 import { useEffect, useState } from "react";
-//import { useContext } from "react";
+
 import { getUser } from "../../commons/auth/Auth";
 import { useFetch2 } from "../../commons/hooks/useFetch";
-//import { AuthContext } from "../../commons/auth/AuthContext";
 
 export const MainPage = () => {
   const [quote, setQuote] = useState<any>();
   const { state } = useFetch2("https://type.fit/api/quotes");
   useEffect(() => {
-    //const fetched = state.post;
     const selected = state.post[Math.floor(Math.random() * state.post.length)];
     setQuote(selected);
   }, [state]);
