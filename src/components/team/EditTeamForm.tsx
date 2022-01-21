@@ -90,6 +90,7 @@ export const EditTeamForm = (props: Props) => {
       method: "PUT",
       headers: { Authorization: getUser().email },
     });
+    value.value.membersToRemove = null;
   };
 
   useEffect(() => {
@@ -132,8 +133,9 @@ export const EditTeamForm = (props: Props) => {
           {size !== "small" && (
             <Box>
               {dontIncludeMyName(getUser().username, teamInfo.members).map(
-                (name) => (
+                (name, i) => (
                   <Text
+                    key={i}
                     style={{
                       marginTop: "2px",
                       marginLeft: "15px",
