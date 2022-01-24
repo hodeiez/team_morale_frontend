@@ -48,3 +48,6 @@ export const deleteTeam = (userTeamId: number) => {
 export const unsubscribeMe = (teamId: number) => {
   return `${API_ENDPOINT}/team/unsubscribeMe/from/${teamId}`;
 };
+export const resetPass = () => {
+  return `${API_ENDPOINT}/user/resetPass`;
+};

@@ -137,6 +137,9 @@ export const ProfilePage = () => {
       {apiData && <N.Success message="updated!" />}
       {state.error && <N.Error message={"Stats error: " + state.error} />}
       {serverError && <N.Error message={serverError} />}
+      {/*  {apiData && <N.MyToaster message="updated!" />}
+      {state.error && <N.MyToaster message={state.error} />}
+      {serverError && <N.MyToaster message={serverError} />} */}
     </Box>
   );
 };

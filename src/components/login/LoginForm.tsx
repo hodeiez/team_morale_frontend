@@ -1,11 +1,11 @@
-import { Box, Button, Form, Text, FormField, TextInput } from "grommet";
 import { useCallback, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFetchCallback } from "./../../commons/hooks/useFetch";
 import { login } from "../../commons/api/apiConstants";
 import { AuthContext } from "../../commons/auth/AuthContext";
-import Loading from "../../commons/components/Loading/Loading";
-type UserCreds = {
+
+import { LoginFormTemplate } from "../../commons/components/LoginFormTemplate/LoginFormTemplate";
+export type UserCreds = {
   email: string;
   password: string;
 };
@@ -46,26 +46,12 @@ export const LoginForm = (props: any) => {
   }, [isLoading, apiData]);
 
   return (
-    <Box align="center" pad="small">
-      <Form onChange={update} onSubmit={submit}>
-        <FormField name="email" htmlFor="email" label="Email" required>
-          <TextInput id="email" name="email" type="email" />
-        </FormField>
-
-        <FormField name="password" htmlFor="password" label="Password" required>
-          <TextInput id="password" name="password" type="password" />
-        </FormField>
-
-        <Button type="submit" label="Submit" primary color={props.color} />
-
-        <br></br>
-        {serverError && !isLoading && (
-          <Text margin={{ left: "small" }} size="small" color="status-critical">
-            {serverError}
-          </Text>
-        )}
-      </Form>
-      <Box height="1px">{isLoading && <Loading />}</Box>
-    </Box>
+    <LoginFormTemplate
+      update={update}
+      serverError={serverError}
+      submit={submit}
+      color={props.color}
+      isLoading={isLoading}
+    />
   );
 };

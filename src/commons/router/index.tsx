@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage } from "../../pages/home/HomePage";
 import { MainPage } from "../../pages/main/MainPage";
+
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { NavBar } from "../../components/nav/NavBar";
 import { AuthContext } from "../auth/AuthContext";
@@ -10,6 +11,7 @@ import { TeamsPage } from "../../pages/team/TeamsPage";
 import { EventEvaluationPage } from "../../pages/event/EventEvaluationPage";
 import { NotAuthorized } from "../../pages/forbidden/NotAuthorized";
 import { TeamPage } from "../../pages/team/TeamPage";
+import { ForgotPass } from "../../pages/forgotPass/ForgotPass";
 
 function BaseRoutes(props: any) {
   const { state } = useContext(AuthContext);
@@ -33,6 +35,7 @@ function BaseRoutes(props: any) {
         ) : (
           <>
             <Route path="/*" element={<NotAuthorized />} />
+            <Route path="/forgotPass" element={<ForgotPass />} />
           </>
         )}
       </Routes>
