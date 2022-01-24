@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useFetchCallback } from "./../../commons/hooks/useFetch";
 import { login } from "../../commons/api/apiConstants";
 import { AuthContext } from "../../commons/auth/AuthContext";
-
+import { Button, Text } from "grommet";
 import { LoginFormTemplate } from "../../commons/components/LoginFormTemplate/LoginFormTemplate";
 export type UserCreds = {
   email: string;
@@ -46,12 +46,15 @@ export const LoginForm = (props: any) => {
   }, [isLoading, apiData]);
 
   return (
-    <LoginFormTemplate
-      update={update}
-      serverError={serverError}
-      submit={submit}
-      color={props.color}
-      isLoading={isLoading}
-    />
+    <>
+      <LoginFormTemplate
+        update={update}
+        serverError={serverError}
+        submit={submit}
+        color={props.color}
+        isLoading={isLoading}
+      />
+      <Button href="/sendForgotPass">Forgot pass?</Button>
+    </>
   );
 };

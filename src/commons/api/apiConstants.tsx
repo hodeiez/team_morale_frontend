@@ -51,3 +51,6 @@ export const unsubscribeMe = (teamId: number) => {
 export const resetPass = () => {
   return `${API_ENDPOINT}/user/resetPass`;
 };
+export const sendForgotPass = (email: string) => {
+  return `${API_ENDPOINT}/user/forgotPass/email/${email}`;
+};

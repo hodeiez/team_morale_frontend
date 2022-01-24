@@ -55,8 +55,6 @@ export const ForgotPass = () => {
           isLoading={isLoading}
         />
       )}
-
-      {JSON.stringify(userCreds)}
     </>
   );
 };
