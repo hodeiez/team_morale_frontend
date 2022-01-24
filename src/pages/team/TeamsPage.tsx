@@ -1,17 +1,22 @@
 import { Text, Box, Grid, ResponsiveContext } from "grommet";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getUser } from "../../commons/auth/Auth";
 import { AccordionContainer } from "../../commons/components/AccordionContainer/AccordionContainer";
-import { useFetch } from "../../commons/hooks/useFetch";
+import { useFetch2 } from "../../commons/hooks/useFetch";
 import { CreateTeamForm } from "../../components/team/CreateTeamForm";
 import { TeamCard } from "../../components/team/TeamCard";
 import * as Address from "../../commons/api/apiConstants";
 import { LoadingTeamCard } from "../../components/loading/LoadingTeamCard";
 import * as N from "../../commons/components/Notifications";
 export const TeamsPage = () => {
-  const { apiData, serverError } = useFetch("GET", Address.myTeams(), null, {
-    Authorization: getUser().email,
+  const [teams, setTeams] = useState<any>();
+  const { state } = useFetch2(Address.myTeams(), {
+    method: "GET",
+    headers: { Authorization: getUser().email },
   });
+  useEffect(() => {
+    if (!state.loading) setTeams(state.post);
+  }, [state]);
   const size = useContext(ResponsiveContext);
   return (
     <Box>
@@ -33,16 +38,16 @@ export const TeamsPage = () => {
         columns={size !== "small" ? "23%" : "100%"}
         gap="medium"
       >
-        {!apiData ? (
-          !serverError ? (
-            Array.from({ length: 20 }).map((l: any, i: number) => (
-              <LoadingTeamCard key={i} />
-            ))
-          ) : (
-            <N.Error message={serverError!.message} />
-          )
-        ) : (
-          apiData!.map((t: any) => (
+        {!teams &&
+          Array.from({ length: 20 }).map((l: any, i: number) => (
+            <LoadingTeamCard key={i} />
+          ))}
+
+        {state.error && (
+          <N.MyToaster type="ERROR" visible={true} message={state.error} />
+        )}
+        {teams &&
+          teams.map((t: any) => (
             <TeamCard
               key={t.userTeamsId}
               userTeamsid={t.userTeamsId}
@@ -52,8 +57,7 @@ export const TeamsPage = () => {
               members={t.members}
               id={t.id}
             />
-          ))
-        )}
+          ))}
       </Grid>
     </Box>
   );
