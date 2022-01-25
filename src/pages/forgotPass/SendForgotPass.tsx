@@ -5,8 +5,8 @@ import { useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
 import * as Address from "../../commons/api/apiConstants";
 import * as GS from "../../commons/styles/styles";
 export const SendForgotPass = () => {
-  const [userEmail, setuserEmail] = useState<string>("");
-  const { isLoading, apiData, serverError, execute } = useFetchPostOrUpdate({});
+  const [userEmail, setuserEmail] = useState<string | any>();
+  const { isLoading, serverError, execute } = useFetchPostOrUpdate({});
   const update = useCallback((email: any) => {
     setuserEmail(email.email);
   }, []);

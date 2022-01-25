@@ -101,7 +101,7 @@ export const LineGraph = (props: Props) => {
         />
         <Line
           type="monotone"
-          dataKey="energygDev"
+          dataKey="energyDev"
           name="energy dev."
           stroke="#8884d1"
           strokeWidth="2"

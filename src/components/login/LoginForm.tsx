@@ -3,11 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { useFetchCallback } from "./../../commons/hooks/useFetch";
 import { login } from "../../commons/api/apiConstants";
 import { AuthContext } from "../../commons/auth/AuthContext";
-import { Button, Text } from "grommet";
+import { Button } from "grommet";
 import { LoginFormTemplate } from "../../commons/components/LoginFormTemplate/LoginFormTemplate";
 export type UserCreds = {
   email: string;
   password: string;
+};
+export type UserAuth = {
+  username: string;
+  email: string;
+  token: string;
 };
 export const LoginForm = (props: any) => {
   const history = useNavigate();
@@ -38,8 +43,8 @@ export const LoginForm = (props: any) => {
     !isLoading && apiData
       ? dispatch({
           type: "LOGIN",
-          user: { ...(apiData as any) },
-          token: "string",
+          user: { ...(apiData as UserAuth) },
+          token: JSON.stringify(apiData),
           auth: true,
         })
       : dispatch({ type: "LOGOUT", auth: false });

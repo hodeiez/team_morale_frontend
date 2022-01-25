@@ -45,7 +45,7 @@ type fetchOptions = {
   headers?: any;
   body?: any;
 };
-export const useFetchPostOrUpdate = (options: fetchOptions) => {
+export const useFetchPostOrUpdate = (options?: fetchOptions) => {
   const [isLoading, setIsLoading] = useState(false);
   const [apiData, setApiData] = useState(null);
   const [serverError, setServerError] = useState<any>(null);
