@@ -43,8 +43,11 @@ export const LoginForm = (props: any) => {
     !isLoading && apiData
       ? dispatch({
           type: "LOGIN",
-          user: { ...(apiData as UserAuth) },
-          token: JSON.stringify(apiData),
+          user: {
+            email: (apiData as UserAuth).email,
+            username: (apiData as UserAuth).username,
+          },
+          token: (apiData as UserAuth).token,
           auth: true,
         })
       : dispatch({ type: "LOGOUT", auth: false });

@@ -33,3 +33,6 @@ export const updateUserName = (username: any) => {
   };
   setCredentials(updated);
 };
+export const getBearer = () => {
+  return "Bearer " + JSON.parse(getCredentials()!).token;
+};

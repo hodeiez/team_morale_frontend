@@ -1,6 +1,6 @@
 import { Text, Box, Grid, ResponsiveContext } from "grommet";
 import { useContext, useEffect, useState } from "react";
-import { getUser } from "../../commons/auth/Auth";
+import { getBearer } from "../../commons/auth/Auth";
 import { AccordionContainer } from "../../commons/components/AccordionContainer/AccordionContainer";
 import { useFetch2 } from "../../commons/hooks/useFetch";
 import { CreateTeamForm } from "../../components/team/CreateTeamForm";
@@ -12,7 +12,7 @@ export const TeamsPage = () => {
   const [teams, setTeams] = useState<any>();
   const { state } = useFetch2(Address.myTeams(), {
     method: "GET",
-    headers: { Authorization: getUser().email },
+    headers: { Authorization: getBearer() },
   });
   useEffect(() => {
     if (!state.loading) setTeams(state.post);
