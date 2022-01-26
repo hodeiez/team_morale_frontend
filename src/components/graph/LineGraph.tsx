@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { getTeamAverageHistory } from "../../commons/api/apiConstants";
+import { getBearer } from "../../commons/auth/Auth";
 import { useFetch2 } from "../../commons/hooks/useFetch";
 
 type GraphData = {
@@ -29,7 +30,9 @@ export const LineGraph = (props: Props) => {
   const [data, setData] = useState<any>({});
   //testing!!!
 
-  const { state } = useFetch2(getTeamAverageHistory(props.id));
+  const { state } = useFetch2(getTeamAverageHistory(props.id), {
+    headers: getBearer(),
+  });
 
   useEffect(() => {
     if (!props.data) {

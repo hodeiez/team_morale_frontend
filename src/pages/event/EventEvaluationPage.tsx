@@ -7,6 +7,7 @@ import { EvaluationForm } from "../../components/evaluation/EvaluationForm";
 import * as Address from "../../commons/api/apiConstants";
 import { Evaluation } from "../../components/evaluation/EvaluationTypes";
 import * as Tools from "../../commons/utils";
+import { getBearer } from "../../commons/auth/Auth";
 
 export const EventEvaluationPage = () => {
   const location = useLocation();
@@ -14,11 +15,14 @@ export const EventEvaluationPage = () => {
   const { userTeamId, id, teamName } = location.state as any;
   const size = useContext(ResponsiveContext);
 
-  const { state } = useFetch2(Address.getMyTeamsToday(userTeamId));
+  const { state } = useFetch2(Address.getMyTeamsToday(userTeamId), {
+    headers: { Authorization: getBearer() },
+  });
 
   const data: Evaluation[] = Tools.useEventSource(
     Address.getEvent({
       userTeamId: userTeamId,
+      auth: getBearer(),
     })
   );
   useEffect(() => {
