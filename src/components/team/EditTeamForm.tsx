@@ -10,7 +10,7 @@ import {
 import * as N from "../../commons/components/Notifications";
 import { useCallback, useContext, useEffect, useState } from "react";
 import * as Address from "../../commons/api/apiConstants";
-import { getUser } from "../../commons/auth/Auth";
+import { getBearer, getUser } from "../../commons/auth/Auth";
 import { useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
 import { MemberField } from "./MemberField";
 import * as S from "./styled";
@@ -65,14 +65,14 @@ export const EditTeamForm = (props: Props) => {
   const deleteTeam = async () => {
     await deleteTeamExec({
       url: Address.deleteTeam(props.userTeamId),
-      headers: { Authorization: getUser().email },
+      headers: { Authorization: getBearer() },
       method: "DELETE",
     });
   };
   const unsubscribeMe = async () => {
     await unsubMeExec({
       url: Address.unsubscribeMe(props.teamId),
-      headers: { Authorization: getUser().email },
+      headers: { Authorization: getBearer() },
       method: "DELETE",
     });
   };
@@ -88,7 +88,7 @@ export const EditTeamForm = (props: Props) => {
       url: Address.updateTeam(),
       body: teamToUpdate,
       method: "PUT",
-      headers: { Authorization: getUser().email },
+      headers: { Authorization: getBearer() },
     });
     value.value.membersToRemove = null;
   };
@@ -121,14 +121,16 @@ export const EditTeamForm = (props: Props) => {
         </Text>
         <Box direction="row">
           <FormField name="membersToRemove">
-            <S.CheckTrash
-              id="membersToRemove"
-              name="membersToRemove"
-              options={dontIncludeMyEmail(
-                getUser().email,
-                teamInfo.membersEmail
-              )}
-            />
+            {teamInfo.membersEmail && (
+              <S.CheckTrash
+                id="membersToRemove"
+                name="membersToRemove"
+                options={dontIncludeMyEmail(
+                  getUser().email,
+                  teamInfo.membersEmail
+                )}
+              />
+            )}
           </FormField>
           {size !== "small" && (
             <Box>

@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 import { MemberField } from "./MemberField";
 import { useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
 import * as Address from "../../commons/api/apiConstants";
-import { getUser } from "../../commons/auth/Auth";
+import { getBearer, getUser } from "../../commons/auth/Auth";
 import * as N from "../../commons/components/Notifications";
 
 type Team = {
@@ -39,7 +39,7 @@ export const CreateTeamForm = () => {
       url: Address.createTeamWithEmails(),
       method: "POST",
       body: team,
-      headers: { Authorization: getUser().email },
+      headers: { Authorization: getBearer() },
     });
   };
   return (

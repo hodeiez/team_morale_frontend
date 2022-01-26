@@ -11,7 +11,7 @@ import {
 import * as S from "./styled";
 import * as GS from "../../commons/styles/styles";
 import { useCallback, useContext, useEffect, useState } from "react";
-import { getUser, updateUserName } from "../../commons/auth/Auth";
+import { getUser, getBearer, updateUserName } from "../../commons/auth/Auth";
 import { useFetch2, useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
 import {
   getMyStats,
@@ -26,7 +26,7 @@ export const ProfilePage = () => {
   const size = useContext(ResponsiveContext);
   const [stats, setStats] = useState<any>();
   const { state } = useFetch2(getMyStats(), {
-    headers: { Authorization: getUser().email },
+    headers: { Authorization: getBearer() },
   });
   const [userName, setUserName] = useState<any>({});
   const [userPass, setUserPass] = useState<any>({});
@@ -42,7 +42,7 @@ export const ProfilePage = () => {
       url: updateMe(),
       body: userName,
       method: "PUT",
-      headers: { Authorization: getUser().email },
+      headers: { Authorization: getBearer() },
     });
   };
   const setUpNewPassword = useCallback((pass: any) => {
@@ -54,7 +54,7 @@ export const ProfilePage = () => {
       url: updatePassword(),
       body: userPass,
       method: "POST",
-      headers: { Authorization: getUser().email },
+      headers: { Authorization: getBearer() },
     });
   };
 

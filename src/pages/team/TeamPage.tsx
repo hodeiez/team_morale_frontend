@@ -6,12 +6,15 @@ import { useFetch2 } from "../../commons/hooks/useFetch";
 import { LineGraph } from "../../components/graph/LineGraph";
 import { EditTeamForm } from "../../components/team/EditTeamForm";
 import { oneTeam } from "../../commons/api/apiConstants";
+import { getBearer } from "../../commons/auth/Auth";
 
 export const TeamPage = () => {
   const location = useLocation();
 
   const { userTeamId, id, teamName } = location.state as any;
-  const { state } = useFetch2(oneTeam(id));
+  const { state } = useFetch2(oneTeam(id), {
+    headers: { Authorization: getBearer() },
+  });
 
   return (
     <Box margin="10%">
