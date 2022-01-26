@@ -56,6 +56,11 @@ export const useEventSource = (url: string) => {
         return [...oldData, eventData];
       });
     };
+    source.onerror = () => {
+      console.log("unauthorized");
+      source.close();
+      return { error: "unauthorized" };
+    };
   }, []);
   return data;
 };

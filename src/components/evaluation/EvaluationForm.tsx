@@ -4,6 +4,7 @@ import * as N from "../../commons/components/Notifications";
 import * as Address from "../../commons/api/apiConstants";
 import * as I from "grommet-icons";
 import { useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
+import { getBearer } from "../../commons/auth/Auth";
 
 //TODO: persist evaluation with id in case user refreshes the page?? and add error notification!.
 
@@ -52,6 +53,7 @@ export function EvaluationForm(props: any) {
       url: Address.createOrUpdate(),
       method: "POST",
       body: post,
+      headers: { Authorization: getBearer() },
     });
     setSubmit(false);
   }, [post]);
