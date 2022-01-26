@@ -12,10 +12,13 @@ export const TeamsPage = () => {
   const [teams, setTeams] = useState<any>();
   const { state } = useFetch2(Address.myTeams(), {
     method: "GET",
-    headers: { Authorization: getBearer() },
+    headers: {
+      Authorization: getBearer(),
+    },
   });
   useEffect(() => {
     if (!state.loading) setTeams(state.post);
+    console.log(getBearer());
   }, [state]);
   const size = useContext(ResponsiveContext);
   return (
