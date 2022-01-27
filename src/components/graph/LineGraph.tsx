@@ -31,7 +31,7 @@ export const LineGraph = (props: Props) => {
   //testing!!!
 
   const { state } = useFetch2(getTeamAverageHistory(props.id), {
-    headers: getBearer(),
+    headers: { Authorization: getBearer() },
   });
 
   useEffect(() => {

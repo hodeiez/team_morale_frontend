@@ -21,6 +21,7 @@ import {
 import { LineGraph } from "../../components/graph/LineGraph";
 import * as N from "../../commons/components/Notifications";
 import { MaxAndMin } from "../../components/dataReview/MaxAndMin";
+import Loading from "../../commons/components/Loading/Loading";
 
 export const ProfilePage = () => {
   const size = useContext(ResponsiveContext);
@@ -122,6 +123,8 @@ export const ProfilePage = () => {
           </Form>
         </Box>
       </Grid>
+      <Box height="1px">{isLoading && <Loading />}</Box>
+
       <GS.Title2>STATS</GS.Title2>
       <Box margin="large">
         {stats && !state.error && (
@@ -134,12 +137,13 @@ export const ProfilePage = () => {
       <Box margin="large" align="center">
         {stats && !state.error && <MaxAndMin data={stats.maxMinCalculations} />}
       </Box>
-      {apiData && <N.Success message="updated!" />}
-      {state.error && <N.Error message={"Stats error: " + state.error} />}
-      {serverError && <N.Error message={serverError} />}
-      {/*  {apiData && <N.MyToaster message="updated!" />}
-      {state.error && <N.MyToaster message={state.error} />}
-      {serverError && <N.MyToaster message={serverError} />} */}
+      {serverError && !isLoading && (
+        <N.MyToaster type="ERROR" message={serverError} visible={true} />
+      )}
+
+      {apiData && !isLoading && !serverError && (
+        <N.MyToaster message="updated!" visible={true} />
+      )}
     </Box>
   );
 };

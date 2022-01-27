@@ -23,7 +23,7 @@ export const ForgotPass = () => {
       headers: {
         Accept: "*",
         Type: "application/json",
-        Authorization: params.get("token"),
+        Authorization: "Bearer " + params.get("token"),
       },
     });
   };

@@ -4,9 +4,10 @@ import Loading from "../../commons/components/Loading/Loading";
 import { useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
 import * as Address from "../../commons/api/apiConstants";
 import * as GS from "../../commons/styles/styles";
+import * as N from "../../commons/components/Notifications";
 export const SendForgotPass = () => {
   const [userEmail, setuserEmail] = useState<string | any>();
-  const { isLoading, serverError, execute } = useFetchPostOrUpdate({});
+  const { apiData, isLoading, serverError, execute } = useFetchPostOrUpdate({});
   const update = useCallback((email: any) => {
     setuserEmail(email.email);
   }, []);
@@ -33,11 +34,11 @@ export const SendForgotPass = () => {
         <Button type="submit" label="Submit" primary color="accent-4" />
 
         <br></br>
-        {serverError && !isLoading && (
+        {/*  {serverError && !isLoading && (
           <Text margin={{ left: "small" }} size="small" color="status-critical">
             {serverError}
           </Text>
-        )}
+        )} */}
       </Form>
       <Box height="1px">{isLoading && <Loading />}</Box>
       <Button
@@ -48,6 +49,13 @@ export const SendForgotPass = () => {
         label="False alarm!!, I want to go back to Login"
         style={{ marginTop: "160px" }}
       ></Button>
+      {serverError && !isLoading && (
+        <N.MyToaster type="ERROR" message={serverError} visible={true} />
+      )}
+
+      {apiData && !isLoading && !serverError && (
+        <N.MyToaster message="updated!" visible={true} />
+      )}
     </Box>
   );
 };
