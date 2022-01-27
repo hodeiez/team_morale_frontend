@@ -54,3 +54,6 @@ export const resetPass = () => {
 export const sendForgotPass = (email: string) => {
   return `${API_ENDPOINT}/user/forgotPass/email/${email}`;
 };
+export const confirmAccount = () => {
+  return `${API_ENDPOINT}/user/verifyMe`;
+};

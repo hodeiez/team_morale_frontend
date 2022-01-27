@@ -13,6 +13,7 @@ import { NotAuthorized } from "../../pages/forbidden/NotAuthorized";
 import { TeamPage } from "../../pages/team/TeamPage";
 import { ForgotPass } from "../../pages/forgotPass/ForgotPass";
 import { SendForgotPass } from "../../pages/forgotPass/SendForgotPass";
+import { ConfirmAccount } from "../../pages/confirmAccount/ConfirmAccount";
 
 function BaseRoutes(props: any) {
   const { state } = useContext(AuthContext);
@@ -38,6 +39,7 @@ function BaseRoutes(props: any) {
             <Route path="/*" element={<NotAuthorized />} />
             <Route path="/forgotPass" element={<ForgotPass />} />
             <Route path="/sendForgotPass" element={<SendForgotPass />} />
+            <Route path="/confirmAccount" element={<ConfirmAccount />} />
           </>
         )}
       </Routes>

@@ -37,10 +37,11 @@ export const LoginForm = (props: any) => {
   };
   useEffect(() => {
     state.auth ? history("/main") : history("");
+    console.log(apiData);
   }, [state]);
 
   useEffect(() => {
-    !isLoading && apiData
+    !isLoading && apiData && (apiData as UserAuth).token != null
       ? dispatch({
           type: "LOGIN",
           user: {
@@ -63,6 +64,7 @@ export const LoginForm = (props: any) => {
         isLoading={isLoading}
       />
       <Button href="/sendForgotPass">Forgot pass?</Button>
+      {apiData && (apiData as UserAuth).token != null && <p>not authorized</p>}
     </>
   );
 };

@@ -34,11 +34,11 @@ export const SendForgotPass = () => {
         <Button type="submit" label="Submit" primary color="accent-4" />
 
         <br></br>
-        {/*  {serverError && !isLoading && (
+        {serverError && !isLoading && (
           <Text margin={{ left: "small" }} size="small" color="status-critical">
             {serverError}
           </Text>
-        )} */}
+        )}
       </Form>
       <Box height="1px">{isLoading && <Loading />}</Box>
       <Button

@@ -43,8 +43,8 @@ export const HomePage = () => {
           create teams. Then, every team can meet up digitally and register
           their status of that day (energy level, productivity level and
           well-being level).When the teams meet up in a "room" they can see
-          others status (this is the real time effect). All users will get other
-          users registered updates instantly when they are in the room.
+          others status. All users will get other users registered updates
+          instantly when they are in the room.
         </div>
       </Main>
     </Box>
