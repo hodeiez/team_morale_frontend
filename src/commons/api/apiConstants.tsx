@@ -1,59 +1,59 @@
-const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+const REACT_APP_API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 export const login = (params?: any) => {
-  return `${API_ENDPOINT}/user/login`;
+  return `${REACT_APP_API_ENDPOINT}/user/login`;
 };
 export const signUp = (params?: any) => {
-  return `${API_ENDPOINT}/user/signup`;
+  return `${REACT_APP_API_ENDPOINT}/user/signup`;
 };
 export const myTeams = () => {
-  return `${API_ENDPOINT}/team/myTeams/`;
+  return `${REACT_APP_API_ENDPOINT}/team/myTeams/`;
 };
 export const oneTeam = (id: number) => {
-  return `${API_ENDPOINT}/team/id/${id}`;
+  return `${REACT_APP_API_ENDPOINT}/team/id/${id}`;
 };
 export const sendEvaluation = () => {
-  return `${API_ENDPOINT}/evaluation`;
+  return `${REACT_APP_API_ENDPOINT}/evaluation`;
 };
 export const createOrUpdate = () => {
-  return `${API_ENDPOINT}/evaluation/createOrUpdate/`;
+  return `${REACT_APP_API_ENDPOINT}/evaluation/createOrUpdate/`;
 };
 export const getMyTeamsToday = (userTeamsId: number) => {
   return `${sendEvaluation()}/myTeamToday/${userTeamsId}`;
 };
 export const getEvent = (params?: any) => {
-  return `${API_ENDPOINT}/evaluation/events?userTeamId=${params.userTeamId}&auth=${params.auth}`;
+  return `${REACT_APP_API_ENDPOINT}/evaluation/events?userTeamId=${params.userTeamId}&auth=${params.auth}`;
 };
 export const createTeamWithEmails = () => {
-  return `${API_ENDPOINT}/team/createTeamWithEmails/`;
+  return `${REACT_APP_API_ENDPOINT}/team/createTeamWithEmails/`;
 };
 export const getTeamAverageHistory = (teamId: number) => {
   return `${sendEvaluation()}/stats/team/${teamId}`;
 };
 export const getMyStats = () => {
-  return `${API_ENDPOINT}/user/getMyStats`;
+  return `${REACT_APP_API_ENDPOINT}/user/getMyStats`;
 };
 export const updateMe = () => {
-  return `${API_ENDPOINT}/user/updateMe`;
+  return `${REACT_APP_API_ENDPOINT}/user/updateMe`;
 };
 export const updatePassword = () => {
-  return `${API_ENDPOINT}/user/changePass`;
+  return `${REACT_APP_API_ENDPOINT}/user/changePass`;
 };
 export const updateTeam = () => {
-  return `${API_ENDPOINT}/team/update`;
+  return `${REACT_APP_API_ENDPOINT}/team/update`;
 };
 export const deleteTeam = (userTeamId: number) => {
-  return `${API_ENDPOINT}/team/delete/full/userTeam/${userTeamId}`;
+  return `${REACT_APP_API_ENDPOINT}/team/delete/full/userTeam/${userTeamId}`;
 };
 export const unsubscribeMe = (teamId: number) => {
-  return `${API_ENDPOINT}/team/unsubscribeMe/from/${teamId}`;
+  return `${REACT_APP_API_ENDPOINT}/team/unsubscribeMe/from/${teamId}`;
 };
 export const resetPass = () => {
-  return `${API_ENDPOINT}/user/resetPass`;
+  return `${REACT_APP_API_ENDPOINT}/user/resetPass`;
 };
 export const sendForgotPass = (email: string) => {
-  return `${API_ENDPOINT}/user/forgotPass/email/${email}`;
+  return `${REACT_APP_API_ENDPOINT}/user/forgotPass/email/${email}`;
 };
 export const confirmAccount = () => {
-  return `${API_ENDPOINT}/user/verifyMe`;
+  return `${REACT_APP_API_ENDPOINT}/user/verifyMe`;
 };
