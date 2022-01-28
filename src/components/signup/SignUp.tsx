@@ -1,9 +1,9 @@
 import { Box, Button, Form, Text, FormField, TextInput } from "grommet";
-import { useCallback, useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useCallback, useState } from "react";
+
 import { useFetchCallback } from "./../../commons/hooks/useFetch";
 import { signUp } from "../../commons/api/apiConstants";
-import { AuthContext } from "../../commons/auth/AuthContext";
+
 import Loading from "../../commons/components/Loading/Loading";
 type UserSignUp = {
   email: string;

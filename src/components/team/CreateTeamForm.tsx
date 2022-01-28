@@ -3,8 +3,9 @@ import { useState, useCallback } from "react";
 import { MemberField } from "./MemberField";
 import { useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
 import * as Address from "../../commons/api/apiConstants";
-import { getBearer, getUser } from "../../commons/auth/Auth";
+import { getBearer } from "../../commons/auth/Auth";
 import * as N from "../../commons/components/Notifications";
+import Loading from "../../commons/components/Loading/Loading";
 
 type Team = {
   id: number;
@@ -67,12 +68,13 @@ export const CreateTeamForm = () => {
       <Box pad="large" style={{ display: "flex", justifyContent: "center" }}>
         <Button type="submit" color="accent-4" label="Submit" primary />
       </Box>
+      <Box height="1px">{isLoading && <Loading />}</Box>
       {serverError ? <N.Error message={serverError} /> : <></>}
       {apiData ? (
         <N.Success
           message={
             (apiData! as Team).name +
-            "created with " +
+            " created with " +
             (apiData! as Team).members +
             " members"
           }

@@ -30,7 +30,7 @@ export const useRandomColorCard = (color: any) => {
         setBackground(color.four);
         break;
     }
-  }, []);
+  }, [color]);
   return background;
 };
 
@@ -50,7 +50,7 @@ export const useEventSource = (url: string) => {
       }, 40000);
       return () => clearInterval(theInterval);
     }
-  }, []);
+  }, [url]);
   return data;
 };
 const runEventSource = (url: any, updateData: any) => {

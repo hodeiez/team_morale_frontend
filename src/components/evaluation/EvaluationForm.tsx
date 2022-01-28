@@ -56,19 +56,16 @@ export function EvaluationForm(props: any) {
       headers: { Authorization: getBearer() },
     });
     setSubmit(false);
-  }, [post]);
+  }, [post, execute]);
   useEffect(() => {
     if (submit) {
-      console.log(post);
-      console.log(validateForm(post));
       if (validateForm(post)) {
-        console.log(post);
         postData();
       } else {
         console.log("ERROR!!!");
       }
     }
-  }, [postData, submit]);
+  }, [postData, submit, post]);
 
   return (
     <Box pad="small" alignContent="center" alignSelf="center">

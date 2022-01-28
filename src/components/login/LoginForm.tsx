@@ -37,7 +37,7 @@ export const LoginForm = (props: any) => {
   };
   useEffect(() => {
     state.auth ? history("/main") : history("");
-  }, [state]);
+  }, [state, history]);
 
   useEffect(() => {
     !isLoading && apiData && (apiData as UserAuth).token != null
@@ -51,7 +51,7 @@ export const LoginForm = (props: any) => {
           auth: true,
         })
       : dispatch({ type: "LOGOUT", auth: false });
-  }, [isLoading, apiData]);
+  }, [isLoading, apiData, dispatch]);
 
   return (
     <>
