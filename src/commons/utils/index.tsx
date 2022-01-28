@@ -1,5 +1,9 @@
+
 import { useEffect, useState } from "react";
 import { Evaluation } from "../../components/evaluation/EvaluationTypes";
+
+const isNetlify = process.env.REACT_APP_USING_NETLIFY;
+
 export const mergeArrays = (oldArr: any, newArr: any) => {
   if (oldArr.length > 0) {
     return [oldArr, newArr].reduce((a, b) =>
@@ -41,31 +45,12 @@ export const useEventSource = (url: string) => {
   const [data, updateData] = useState<Evaluation[]>([]);
   useEffect(() => {
     runEventSource(url, updateData);
-    const theInterval = setInterval(() => {
-      runEventSource(url, updateData);
-      /*       const source = new EventSource(url);
-      console.log("waiting for event");
-      source.onmessage = function log(event) {
-        const eventData: Evaluation = JSON.parse(event.data).evaluation;
-        console.log("raw event data ", eventData);
-        updateData((oldData) => {
-          // it updates BASED ON evaluation ID
-          if (oldData.find((v) => v.id === eventData.id)) {
-            const updatedEvaluations = oldData.map((val) =>
-              val.id === eventData.id ? { ...val, ...eventData } : val
-            );
-            return updatedEvaluations;
-          }
-          return [...oldData, eventData];
-        });
-      };
-      source.onerror = () => {
-        console.log("unauthorized");
-        source.close();
-        return { error: "unauthorized" };
-      }; */
-    }, 40000);
-    return () => clearInterval(theInterval);
+    if (isNetlify) {
+      const theInterval = setInterval(() => {
+        runEventSource(url, updateData);
+      }, 40000);
+      return () => clearInterval(theInterval);
+    }
   }, []);
   return data;
 };
