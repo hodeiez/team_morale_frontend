@@ -28,7 +28,6 @@ type Props = {
 
 export const LineGraph = (props: Props) => {
   const [data, setData] = useState<any>({});
-  //testing!!!
 
   const { state } = useFetch2(getTeamAverageHistory(props.id), {
     headers: { Authorization: getBearer() },
@@ -38,7 +37,7 @@ export const LineGraph = (props: Props) => {
     if (!props.data) {
       setData(state.post);
     } else setData(props.data);
-  }, [state]);
+  }, [state, props.data]);
 
   return (
     <ResponsiveContainer width={"100%"} height={400}>
@@ -102,6 +101,7 @@ export const LineGraph = (props: Props) => {
           strokeDasharray={4}
           legendType="rect"
         />
+
         <Line
           type="monotone"
           dataKey="energyDev"
