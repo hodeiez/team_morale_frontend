@@ -22,8 +22,20 @@ import { LineGraph } from "../../components/graph/LineGraph";
 import * as N from "../../commons/components/Notifications";
 import { MaxAndMin } from "../../components/dataReview/MaxAndMin";
 import Loading from "../../commons/components/Loading/Loading";
+import { ConfirmationModal } from "../../components/modal/ConfirmationModal";
 
 export const ProfilePage = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    return false;
+  };
+  const deleteProfile = () => {
+    console.log("deleting profile");
+  };
   const size = useContext(ResponsiveContext);
   const [stats, setStats] = useState<any>();
   const { state } = useFetch2(getMyStats(), {
@@ -95,7 +107,11 @@ export const ProfilePage = () => {
         </Box>
         <Box align="center">
           <GS.Title4>Update password</GS.Title4>
-          <Form onChange={setUpNewPassword} onSubmit={sendUpdatedPass}>
+          <Form
+            onChange={setUpNewPassword}
+            onSubmit={sendUpdatedPass}
+            // deleteIt={()=>{deleteProfile}
+          >
             <FormField name="oldPassword" required>
               <TextInput
                 id="oldPassword"
@@ -123,6 +139,20 @@ export const ProfilePage = () => {
           </Form>
         </Box>
       </Grid>
+      <S.BoxForRemoveMe>
+        <Text alignSelf="center" size="small">
+          all your data will be removed
+        </Text>
+        <Button
+          color="status-critical"
+          primary
+          label="Remove my account"
+          onClick={openModal}
+        />
+      </S.BoxForRemoveMe>
+      {modalOpen && (
+        <ConfirmationModal open={modalOpen} onClose={handleCloseModal} />
+      )}
       <Box height="1px">{isLoading && <Loading />}</Box>
 
       <GS.Title2>STATS</GS.Title2>
