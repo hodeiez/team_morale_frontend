@@ -51,14 +51,14 @@ export const ProfilePage = () => {
         headers: { Authorization: getBearer() },
         method: "DELETE",
       });
-      // history("/");
-      console.log("clean localstorage and go home");
     };
-    deleteProfile && deleteIt();
-    apiData && history("/");
+
     serverError && !isLoading && setDeleteProfile(false);
+    deleteProfile && deleteIt();
+    apiData && console.log(apiData);
+    apiData && history("/");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deleteProfile]);
+  }, [deleteProfile, apiData]);
 
   //to set stats
   const [stats, setStats] = useState<any>();
