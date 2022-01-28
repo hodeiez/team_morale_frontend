@@ -11,10 +11,6 @@ type UserSignUp = {
   username: string;
 };
 export const SignUp = (props: any) => {
-  const history = useNavigate();
-
-  const { state, dispatch } = useContext(AuthContext);
-
   const [userCreds, setUserCreds] = useState<UserSignUp | any>({});
 
   const update = useCallback((user: any) => {
@@ -31,42 +27,49 @@ export const SignUp = (props: any) => {
     e.preventDefault();
     await execute(e);
   };
-  useEffect(() => {
-    state.auth ? history("/main") : history("");
-  }, [state]);
-
-  useEffect(() => {
-    !isLoading && apiData
-      ? dispatch({
-          type: "LOGIN",
-          user: { ...(apiData as any) },
-          token: "string",
-          auth: true,
-        })
-      : dispatch({ type: "LOGOUT", auth: false });
-  }, [isLoading, apiData]);
 
   return (
     <Box align="center" pad="small">
-      <Form onChange={update} onSubmit={submit}>
-        <FormField name="username" htmlFor="username" label="Username" required>
-          <TextInput id="username" name="username" type="text" />
-        </FormField>
-        <FormField name="email" htmlFor="email" label="Email" required>
-          <TextInput id="email" name="email" type="email" />
-        </FormField>
+      {apiData && !isLoading ? (
+        <>
+          <Text color="status-critical">
+            A verification email was sent to {(apiData as UserSignUp).email}
+          </Text>
+          <Text size="small">
+            if you don't see it check on your spams folder
+          </Text>
+        </>
+      ) : (
+        <Form onChange={update} onSubmit={submit}>
+          <FormField
+            name="username"
+            htmlFor="username"
+            label="Username"
+            required
+          >
+            <TextInput id="username" name="username" type="text" />
+          </FormField>
+          <FormField name="email" htmlFor="email" label="Email" required>
+            <TextInput id="email" name="email" type="email" />
+          </FormField>
 
-        <FormField name="password" htmlFor="password" label="Password" required>
-          <TextInput id="password" name="password" type="password" />
-        </FormField>
+          <FormField
+            name="password"
+            htmlFor="password"
+            label="Password"
+            required
+          >
+            <TextInput id="password" name="password" type="password" />
+          </FormField>
 
-        <Button type="submit" label="Submit" primary color={props.color} />
+          <Button type="submit" label="Submit" primary color={props.color} />
 
-        <br></br>
-        <Text margin={{ left: "small" }} size="small" color="status-critical">
-          {serverError}
-        </Text>
-      </Form>
+          <br></br>
+          <Text margin={{ left: "small" }} size="small" color="status-critical">
+            {serverError}
+          </Text>
+        </Form>
+      )}
       <Box height="1px">{isLoading && <Loading />}</Box>
     </Box>
   );

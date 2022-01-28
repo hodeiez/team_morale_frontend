@@ -18,7 +18,6 @@ export const TeamsPage = () => {
   });
   useEffect(() => {
     if (!state.loading) setTeams(state.post);
-    console.log(getBearer());
   }, [state]);
   const size = useContext(ResponsiveContext);
   return (

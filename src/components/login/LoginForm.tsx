@@ -37,7 +37,6 @@ export const LoginForm = (props: any) => {
   };
   useEffect(() => {
     state.auth ? history("/main") : history("");
-    console.log(apiData);
   }, [state]);
 
   useEffect(() => {

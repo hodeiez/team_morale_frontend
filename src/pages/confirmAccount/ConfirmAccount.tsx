@@ -1,6 +1,8 @@
+import { Box, Text } from "grommet";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { confirmAccount } from "../../commons/api/apiConstants";
 import { useFetch2 } from "../../commons/hooks/useFetch";
+import { Title2, Title4 } from "../../commons/styles/styles";
 
 export const ConfirmAccount = () => {
   const [params] = useSearchParams();
@@ -12,9 +14,14 @@ export const ConfirmAccount = () => {
 
   return (
     <>
-      {params.get("token")}
       {!state.isLoading && !state.error && state.post && history("/")}
-      {state.error && <p>there was an error</p>}
+      {state.error && (
+        <Box align="center">
+          <Title2>An error ocurred with your verification</Title2>
+          <Title4>Contact administration ASAP</Title4>
+          <Text>superteammorale@gmail.com</Text>
+        </Box>
+      )}
     </>
   );
 };
