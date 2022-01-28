@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Evaluation } from "../../components/evaluation/EvaluationTypes";
 
@@ -71,9 +70,11 @@ const runEventSource = (url: any, updateData: any) => {
       return [...oldData, eventData];
     });
   };
-  source.onerror = () => {
-    console.log("unauthorized");
-    source.close();
-    return { error: "unauthorized" };
-  };
+  if (!isNetlify) {
+    source.onerror = () => {
+      console.log("unauthorized");
+      source.close();
+      return { error: "unauthorized" };
+    };
+  }
 };
