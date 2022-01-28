@@ -2,19 +2,19 @@ import { Box, Button, Heading, Layer, Text } from "grommet";
 import { useState } from "react";
 
 type Props = {
-  open: boolean;
-  // deleteIt: any;
+  delete: any;
   onClose: any;
+  message: string;
 };
 
 export const ConfirmationModal = (props: Props) => {
-  const [open, setOpen] = useState<boolean>(props.open);
+  const [open, setOpen] = useState<boolean>(true);
 
-  /*  const onDelete = () => {
-    props.deleteIt();
-  }; */
   const onClose = () => setOpen(props.onClose);
-
+  const onDelete = () => {
+    props.delete(true);
+    setOpen(props.onClose);
+  };
   return (
     <>
       {open && (
@@ -29,6 +29,7 @@ export const ConfirmationModal = (props: Props) => {
               Confirm
             </Heading>
             <Text>Are you sure you want to delete?</Text>
+            <Text size="small">{props.message}</Text>
             <Box
               as="footer"
               gap="small"
@@ -44,7 +45,9 @@ export const ConfirmationModal = (props: Props) => {
                     <strong>Delete</strong>
                   </Text>
                 }
-                onClick={}
+                onClick={() => {
+                  onDelete();
+                }}
                 primary
                 color="status-critical"
               />

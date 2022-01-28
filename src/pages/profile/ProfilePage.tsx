@@ -14,6 +14,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { getUser, getBearer, updateUserName } from "../../commons/auth/Auth";
 import { useFetch2, useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
 import {
+  deleteMe,
   getMyStats,
   updateMe,
   updatePassword,
@@ -23,9 +24,16 @@ import * as N from "../../commons/components/Notifications";
 import { MaxAndMin } from "../../components/dataReview/MaxAndMin";
 import Loading from "../../commons/components/Loading/Loading";
 import { ConfirmationModal } from "../../components/modal/ConfirmationModal";
+import { useNavigate } from "react-router-dom";
 
 export const ProfilePage = () => {
+  const size = useContext(ResponsiveContext);
+  const history = useNavigate();
+  const { isLoading, apiData, serverError, execute } = useFetchPostOrUpdate({});
+
+  //to delete profile
   const [modalOpen, setModalOpen] = useState(false);
+  const [deleteProfile, setDeleteProfile] = useState(false);
   const openModal = () => {
     setModalOpen(true);
   };
@@ -33,18 +41,33 @@ export const ProfilePage = () => {
     setModalOpen(false);
     return false;
   };
-  const deleteProfile = () => {
-    console.log("deleting profile");
+  const handleDelete = () => {
+    setDeleteProfile(true);
   };
-  const size = useContext(ResponsiveContext);
+  useEffect(() => {
+    const deleteIt = async () => {
+      await execute({
+        url: deleteMe(),
+        headers: { Authorization: getBearer() },
+        method: "DELETE",
+      });
+      // history("/");
+      console.log("clean localstorage and go home");
+    };
+    deleteProfile && deleteIt();
+    apiData && history("/");
+    serverError && !isLoading && setDeleteProfile(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deleteProfile]);
+
+  //to set stats
   const [stats, setStats] = useState<any>();
   const { state } = useFetch2(getMyStats(), {
     headers: { Authorization: getBearer() },
   });
+  //to update name and password
   const [userName, setUserName] = useState<any>({});
   const [userPass, setUserPass] = useState<any>({});
-  const { isLoading, apiData, serverError, execute } = useFetchPostOrUpdate({});
-
   const setUpNewName = useCallback((username: any) => {
     setUserName(username);
   }, []);
@@ -77,7 +100,7 @@ export const ProfilePage = () => {
 
   useEffect(() => {
     apiData && updateUserName(userName);
-  }, [apiData]);
+  }, [apiData, userName]);
 
   return (
     <Box>
@@ -107,11 +130,7 @@ export const ProfilePage = () => {
         </Box>
         <Box align="center">
           <GS.Title4>Update password</GS.Title4>
-          <Form
-            onChange={setUpNewPassword}
-            onSubmit={sendUpdatedPass}
-            // deleteIt={()=>{deleteProfile}
-          >
+          <Form onChange={setUpNewPassword} onSubmit={sendUpdatedPass}>
             <FormField name="oldPassword" required>
               <TextInput
                 id="oldPassword"
@@ -151,7 +170,11 @@ export const ProfilePage = () => {
         />
       </S.BoxForRemoveMe>
       {modalOpen && (
-        <ConfirmationModal open={modalOpen} onClose={handleCloseModal} />
+        <ConfirmationModal
+          onClose={handleCloseModal}
+          delete={handleDelete}
+          message="If you choose to delete, all your data will be erased, and you will be log out. But, you will be welcome any time you want"
+        />
       )}
       <Box height="1px">{isLoading && <Loading />}</Box>
 

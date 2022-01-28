@@ -1,11 +1,8 @@
 import { Anchor, Text, Box, Tip } from "grommet";
 import * as S from "./styled";
 import * as Icons from "grommet-icons";
-import { AuthContext } from "../../commons/auth/AuthContext";
-import { useContext } from "react";
 
 export function NavBar(props: any) {
-  const { dispatch } = useContext(AuthContext);
   return (
     <Box style={{ marginBottom: "100px", position: "relative", zIndex: 1 }}>
       <S.NavBar direction="row" background="accent-4" pad="medium">
@@ -30,7 +27,6 @@ export function NavBar(props: any) {
             margin="auto"
             style={{ marginRight: "0px" }}
             icon={<Icons.Logout color="black" />}
-            onClick={() => dispatch({ type: "LOGOUT", auth: false })}
             href="/"
           />
         </Tip>

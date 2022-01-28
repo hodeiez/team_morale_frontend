@@ -57,3 +57,6 @@ export const sendForgotPass = (email: string) => {
 export const confirmAccount = () => {
   return `${REACT_APP_API_ENDPOINT}/user/verifyMe`;
 };
+export const deleteMe = () => {
+  return `${REACT_APP_API_ENDPOINT}/user/deleteMe`;
+};
