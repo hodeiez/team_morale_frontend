@@ -40,8 +40,10 @@ export const greyPalleteColors = {
 export const useEventSource = (url: string) => {
   const [data, updateData] = useState<Evaluation[]>([]);
   useEffect(() => {
+    runEventSource(url, updateData);
     const theInterval = setInterval(() => {
-      const source = new EventSource(url);
+      runEventSource(url, updateData);
+      /*       const source = new EventSource(url);
       console.log("waiting for event");
       source.onmessage = function log(event) {
         const eventData: Evaluation = JSON.parse(event.data).evaluation;
@@ -61,9 +63,32 @@ export const useEventSource = (url: string) => {
         console.log("unauthorized");
         source.close();
         return { error: "unauthorized" };
-      };
+      }; */
     }, 40000);
     return () => clearInterval(theInterval);
   }, []);
   return data;
+};
+const runEventSource = (url: any, updateData: any) => {
+  const source = new EventSource(url);
+  console.log("waiting for event");
+  source.onmessage = function log(event) {
+    const eventData: Evaluation = JSON.parse(event.data).evaluation;
+    console.log("raw event data ", eventData);
+    updateData((oldData: any) => {
+      // it updates BASED ON evaluation ID
+      if (oldData.find((v: any) => v.id === eventData.id)) {
+        const updatedEvaluations = oldData.map((val: any) =>
+          val.id === eventData.id ? { ...val, ...eventData } : val
+        );
+        return updatedEvaluations;
+      }
+      return [...oldData, eventData];
+    });
+  };
+  source.onerror = () => {
+    console.log("unauthorized");
+    source.close();
+    return { error: "unauthorized" };
+  };
 };
