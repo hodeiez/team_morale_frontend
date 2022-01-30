@@ -65,7 +65,8 @@ export function EvaluationForm(props: any) {
         console.log("ERROR!!!");
       }
     }
-  }, [postData, submit, post]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [submit]);
 
   return (
     <Box pad="small" alignContent="center" alignSelf="center">
