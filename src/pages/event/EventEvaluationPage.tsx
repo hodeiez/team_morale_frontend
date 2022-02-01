@@ -12,7 +12,7 @@ import { getBearer } from "../../commons/auth/Auth";
 export const EventEvaluationPage = () => {
   const location = useLocation();
   const [users, setUsers] = useState([]);
-  const { userTeamId, id, teamName } = location.state as any;
+  const { userTeamId, teamName } = location.state as any;
   const size = useContext(ResponsiveContext);
 
   const { state } = useFetch2(Address.getMyTeamsToday(userTeamId), {
@@ -27,7 +27,7 @@ export const EventEvaluationPage = () => {
   );
   useEffect(() => {
     setUsers(Tools.mergeArrays(state.post, data));
-  }, [state]);
+  }, [state, data]); //added data
 
   if (!data) {
     return <p>"nothing here!"</p>;
@@ -50,7 +50,12 @@ export const EventEvaluationPage = () => {
         gap="small"
       >
         {Tools.mergeArrays(users, data).map((val: any) => {
-          return <EvaluationCard key={val.id} evaluation={val} />;
+          return (
+            <>
+              {/* {JSON.stringify(val)} */}
+              <EvaluationCard key={val.id + val.name} evaluation={val} />
+            </>
+          );
         })}
       </Grid>
       <Layer

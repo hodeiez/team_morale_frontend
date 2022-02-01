@@ -61,6 +61,7 @@ export const useFetchPostOrUpdate = (options?: fetchOptions) => {
             url: options.url,
             data: options.body,
             headers: options.headers ? options.headers : { Accept: "*" },
+            timeout: 0,
           });
 
           const data: any = await resp?.data;

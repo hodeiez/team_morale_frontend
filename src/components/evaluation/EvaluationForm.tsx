@@ -6,8 +6,6 @@ import * as I from "grommet-icons";
 import { useFetchPostOrUpdate } from "../../commons/hooks/useFetch";
 import { getBearer } from "../../commons/auth/Auth";
 
-//TODO: persist evaluation with id in case user refreshes the page?? and add error notification!.
-
 type Post = {
   energy: number;
   id?: number;
@@ -21,55 +19,106 @@ export function EvaluationForm(props: any) {
   const [post, setPost] = useState<Post>({} as Post);
   const [submit, setSubmit] = useState(false);
 
-  const { isLoading, apiData, serverError, execute } = useFetchPostOrUpdate({
-    url: Address.createOrUpdate(),
-  });
+  const { isLoading, apiData, serverError, execute } = useFetchPostOrUpdate();
   const onChange = useCallback((nextValue) => {
     setValue(nextValue);
   }, []);
-
-  const onSubmit = (e: any) => {
-    e.preventDefault();
-
-    const updated = Object.keys(value)
-      .sort()
-      .reduce((acc: any, val: string) => {
-        acc[val] = value[val].value;
-        return acc;
-      }, {});
-    const toPost = {
-      ...{ ...post, ...updated },
-      ...{ user_teams: props.userTeamId },
-    };
-    apiData
-      ? setPost({ ...toPost, id: (apiData as Post).id })
-      : setPost(toPost);
-
-    setSubmit(true);
-  };
 
   const postData = useCallback(async () => {
     await execute({
       url: Address.createOrUpdate(),
       method: "POST",
       body: post,
-      headers: { Authorization: getBearer() },
+      headers: {
+        Authorization: getBearer(),
+        Accept: "*",
+        ContentType: "application/json",
+      },
     });
     setSubmit(false);
-  }, [post, execute]);
+    console.log("this is post", post);
+  }, [execute, post]);
+  const onSubmit = useCallback(
+    async (e: any) => {
+      e.preventDefault();
+
+      await postData();
+    },
+    [postData]
+  );
+
   useEffect(() => {
-    if (submit) {
-      if (validateForm(post)) {
-        postData();
-      } else {
-        console.log("ERROR!!!");
-      }
+    const updated = Object.keys(value)
+      .sort()
+      .reduce((acc: any, val: string) => {
+        acc[val] = value[val].value;
+        return acc;
+      }, {});
+    console.log("updated", updated);
+    const toPost = {
+      ...{ ...post, ...updated },
+      ...{ user_teams: props.userTeamId },
+    };
+
+    apiData
+      ? setPost({ ...toPost, id: (apiData as Post).id })
+      : setPost(toPost);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+  /*   const onSubmit = useCallback(
+    (e: any) => {
+      e.preventDefault();
+      console.log("values", value);
+      const updated = Object.keys(value)
+        .sort()
+        .reduce((acc: any, val: string) => {
+          acc[val] = value[val].value;
+          return acc;
+        }, {});
+      console.log("updated", updated);
+      const toPost = {
+        ...{ ...post, ...updated },
+        ...{ user_teams: props.userTeamId },
+      };
+
+      apiData
+        ? setPost({ ...toPost, id: (apiData as Post).id })
+        : setPost(toPost);
+
+      setSubmit(true);
+    },
+    [apiData, post, props.userTeamId, value]
+  );
+
+  const postData = useCallback(async () => {
+    await execute({
+      url: Address.createOrUpdate(),
+      method: "POST",
+      body: post,
+      headers: {
+        Authorization: getBearer(),
+        Accept: "*",
+        ContentType: "application/json",
+      },
+    });
+
+    console.log("this is post", post);
+    // setSubmit(true);
+    // console.log("submit is false", submit);
+  }, [execute, post]);
+
+  useEffect(() => {
+    if (validateForm(post) && submit) {
+      postData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submit]);
+  }, [post]); */
 
   return (
     <Box pad="small" alignContent="center" alignSelf="center">
+      {JSON.stringify(apiData)}
+
       {!isLoading && apiData && !serverError && (
         <N.MyToaster
           message={
@@ -88,7 +137,7 @@ export function EvaluationForm(props: any) {
       {!isLoading && serverError && (
         <N.MyToaster message={serverError} visible={true} type="ERROR" />
       )}
-      <Form value={value} onChange={onChange} onSubmit={(e) => onSubmit(e)}>
+      <Form value={value} onChange={onChange} onSubmit={onSubmit}>
         <Box direction="row">
           <FormField label="Energy" name="energy" required>
             <Select
@@ -129,6 +178,7 @@ export function EvaluationForm(props: any) {
             label="Update"
             color="dark-4"
             primary
+            /* onClick={onSubmit} */
             style={{ color: "white" }}
           />
         </Box>
