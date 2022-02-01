@@ -55,10 +55,10 @@ export const useEventSource = (url: string) => {
 };
 const runEventSource = (url: any, updateData: any) => {
   const source = new EventSource(url);
-  console.log("waiting for event");
+
   source.onmessage = function log(event) {
     const eventData: Evaluation = JSON.parse(event.data).evaluation;
-    console.log("raw event data ", eventData);
+
     updateData((oldData: any) => {
       // it updates BASED ON evaluation ID
       if (oldData.find((v: any) => v.id === eventData.id)) {
