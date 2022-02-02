@@ -1,10 +1,11 @@
-import { Box, Button, Form, Text, FormField, TextInput } from "grommet";
+import { Box, Button, Form, Text, FormField, TextInput, Tip } from "grommet";
 import { useCallback, useState } from "react";
 
 import { useFetchCallback } from "./../../commons/hooks/useFetch";
 import { signUp } from "../../commons/api/apiConstants";
 
 import Loading from "../../commons/components/Loading/Loading";
+import { Info, Tooltip } from "grommet-icons";
 type UserSignUp = {
   email: string;
   password: string;
@@ -30,6 +31,16 @@ export const SignUp = (props: any) => {
 
   return (
     <Box align="center" pad="small">
+      <Tip
+        content={
+          <Text size="small" style={{ background: "white" }}>
+            password needs at least one lower case,one capital case,a digit, one
+            special character(@#$%^&+=-!()¤?*) and must be 8 characters long
+          </Text>
+        }
+      >
+        <Info size="small" />
+      </Tip>
       {apiData && !isLoading ? (
         <>
           <Text color="status-critical">
@@ -57,6 +68,15 @@ export const SignUp = (props: any) => {
             name="password"
             htmlFor="password"
             label="Password"
+            validate={[
+              {
+                regexp: new RegExp(
+                  "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=\\s-!()¤?*])(?=\\S+$).{8,}"
+                ),
+                message:
+                  "at least one lower case,one capital case,a digit, one special character(@#$%^&+=-!()¤?*) and 8 characters long ",
+              },
+            ]}
             required
           >
             <TextInput id="password" name="password" type="password" />
@@ -70,6 +90,7 @@ export const SignUp = (props: any) => {
           </Text>
         </Form>
       )}
+
       <Box height="1px">{isLoading && <Loading />}</Box>
     </Box>
   );
