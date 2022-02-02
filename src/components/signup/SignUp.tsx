@@ -39,7 +39,7 @@ export const SignUp = (props: any) => {
           </Text>
         }
       >
-        <Info size="small" />
+        <Info size="small" color="status-warning" />
       </Tip>
       {apiData && !isLoading ? (
         <>
