@@ -5,6 +5,7 @@ type NotificationT = {
   message: string;
   type?: string;
   visible?: boolean;
+  onClose?: () => void;
 };
 
 export const Error = (props: NotificationT) => {
@@ -25,7 +26,7 @@ export const Success = (props: NotificationT) => {
       title="Success"
       message={props.message}
       status="normal"
-      onClose={() => {}}
+      onClose={props.onClose ? props.onClose : () => {}}
     />
   );
 };

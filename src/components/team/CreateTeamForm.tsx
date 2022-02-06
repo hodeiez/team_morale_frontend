@@ -43,6 +43,7 @@ export const CreateTeamForm = () => {
       headers: { Authorization: getBearer() },
     });
   };
+
   return (
     <Form onChange={setupPost} onSubmit={submit}>
       <FormField name="name" label="Team name">
@@ -78,6 +79,9 @@ export const CreateTeamForm = () => {
             (apiData! as Team).members +
             " members"
           }
+          onClose={() => {
+            window.location.reload();
+          }}
         />
       ) : (
         <></>

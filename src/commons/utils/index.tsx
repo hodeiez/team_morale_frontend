@@ -3,12 +3,13 @@ import { Evaluation } from "../../components/evaluation/EvaluationTypes";
 
 const isNetlify = process.env.REACT_APP_USING_NETLIFY;
 
-export const mergeArrays = (oldArr: any, newArr: any) => {
+export const mergeArrays = (oldArr: Evaluation[], newArr: Evaluation[]) => {
   if (oldArr.length > 0) {
-    return [oldArr, newArr].reduce((a, b) =>
-      a.map((c: any, i: string | number) => Object.assign({}, c, b[i]))
-    );
+    var check = new Set(newArr.map((e) => e.id));
+
+    return [...newArr, ...oldArr.filter((e) => !check.has(e.id))];
   }
+
   return newArr;
 };
 
@@ -67,6 +68,7 @@ const runEventSource = (url: any, updateData: any) => {
         );
         return updatedEvaluations;
       }
+
       return [...oldData, eventData];
     });
   };

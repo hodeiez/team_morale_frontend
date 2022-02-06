@@ -15,7 +15,7 @@ export const ForgotPass = () => {
   }, []);
   const submit = async (e: any) => {
     e.preventDefault();
-    console.log(userCreds);
+
     await execute({
       url: Address.resetPass(),
       method: "POST",

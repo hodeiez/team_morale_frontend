@@ -11,7 +11,7 @@ import { getBearer } from "../../commons/auth/Auth";
 
 export const EventEvaluationPage = () => {
   const location = useLocation();
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<Evaluation[]>([]);
   const { userTeamId, teamName } = location.state as any;
   const size = useContext(ResponsiveContext);
 
@@ -26,8 +26,8 @@ export const EventEvaluationPage = () => {
     })
   );
   useEffect(() => {
-    setUsers(Tools.mergeArrays(state.post, data));
-  }, [state, data]); //added data
+    setUsers(state.post);
+  }, [state]);
 
   if (!data) {
     return <p>"nothing here!"</p>;
@@ -52,7 +52,6 @@ export const EventEvaluationPage = () => {
         {Tools.mergeArrays(users, data).map((val: any) => {
           return (
             <>
-              {/* {JSON.stringify(val)} */}
               <EvaluationCard key={val.id + val.name} evaluation={val} />
             </>
           );

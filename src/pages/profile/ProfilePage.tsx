@@ -55,7 +55,7 @@ export const ProfilePage = () => {
 
     serverError && !isLoading && setDeleteProfile(false);
     deleteProfile && deleteIt();
-    apiData && console.log(apiData);
+
     apiData && history("/");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deleteProfile, apiData]);
