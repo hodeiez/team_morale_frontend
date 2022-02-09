@@ -54,7 +54,10 @@ export const SendForgotPass = () => {
       )}
 
       {apiData && !isLoading && !serverError && (
-        <N.MyToaster message="updated!" visible={true} />
+        <N.MyToaster
+          message="Instructions sent to your email!"
+          visible={true}
+        />
       )}
     </Box>
   );
