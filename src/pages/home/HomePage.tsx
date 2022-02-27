@@ -38,13 +38,24 @@ export const HomePage = () => {
 
         <div style={{ textAlign: "center", marginTop: "20px" }}>
           <h2>About</h2>
-          Team morale is a service to track and analyze the morale of a team by
-          getting inputs from their daily stand ups. The users can sign up and
-          create teams. Then, every team can meet up digitally and register
-          their status of that day (energy level, productivity level and
-          well-being level).When the teams meet up in a "room" they can see
-          others status. All users will get other users registered updates
-          instantly when they are in the room.
+          <p>
+            Team morale is a service to track and analyze the morale of a team
+            by getting inputs from their daily stand ups. The users can sign up
+            and create teams. Then, every team can meet up digitally and
+            register their status of that day (energy level, productivity level
+            and well-being level).When the teams meet up in a "room" they can
+            see others status. All users will get other users registered updates
+            instantly when they are in the room.
+          </p>
+          <p>
+            This is a{" "}
+            <strong style={{ color: "red" }}>
+              demo of my final school project
+            </strong>
+            , you can register using an email (the address will be used to
+            confirm the account) or, you can visit the{" "}
+            <a href="https://github.com/hodeiez/final_project">project Repo</a>{" "}
+          </p>
         </div>
       </Main>
     </Box>
